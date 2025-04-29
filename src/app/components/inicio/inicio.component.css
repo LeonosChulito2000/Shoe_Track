@@ -1,0 +1,101 @@
+/* Fondo negro para simular el cielo */
+.splash-container {
+  background-color: #000;
+  width: 100%;
+  height: 100vh;
+  z-index: 0; /* Debe estar debajo de contenido interactivo */
+  top: 0;
+  left: 0;
+  background: linear-gradient(-180deg, rgb(0, 0, 0) 0%, rgb(52, 23, 35) 30%, rgb(81, 44, 73) 50%, rgb(101, 55, 83) 70%, rgb(181, 88, 100) 100%);
+  transform-origin: top center;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 10.0); /* Filtro oscuro sutil en el interior */
+  overflow: hidden;
+  position: relative; /* Necesario para las estrellas */
+}
+
+/* Luna centrada en la parte superior, mostrando solo la mitad inferior */
+.moon-start {
+  width: 250px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 60% 40%, #fff 20%, #ffd1f9 60%, #d89cff 100%);
+  box-shadow: 0 0 30px #dfb839;
+  z-index: 0;
+  overflow: hidden;
+  animation: moonMoveUp 1.5s ease-in-out forwards, moonExpand 5s ease-in-out 1.6s forwards, moonPulse 1.5s ease-in-out infinite;
+  transform-origin: center center; /* Importante para que el scale crezca desde el centro */
+}
+
+/* Animación que mueve la luna hacia arriba mostrando solo la mitad inferior */
+@keyframes moonMoveUp {
+  0% {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    top: 0%; /* La luna sube, pero solo deja la mitad visible */
+    transform: translate(-50%, -50%); /* Se mantiene centrada en la parte superior */
+  }
+}
+
+/* Animación que expande la luna desde la mitad hacia los lados sin moverla verticalmente */
+@keyframes moonExpand {
+  0% {
+    width: 250px;
+    aspect-ratio: 1 / 1;
+    top: 0%; /* La luna empieza en el límite superior */
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+  100% {
+    width: 100%; /* Expande la luna hasta ocupar el 80% de la pantalla */
+    transform: translate(-50%, -80%);
+    border-radius: 100%; /* Mantiene la forma circular */
+  }
+}
+
+/* Animación de pulso de la luna */
+@keyframes moonPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 30px #dfb839;
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 50px #000000;
+  }
+}
+
+/* Cráteres */
+.moon-start::before, .moon-start::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0.5;
+}
+
+.moon-start::before {
+  width: 20px;
+  height: 20px;
+  top: 60px;
+  left: 90px;
+  box-shadow: 
+    30px 20px 0 rgba(0,0,0,0.15),
+    60px 100px 0 rgba(0,0,0,0.12),
+    90px 50px 0 rgba(0,0,0,0.1);
+}
+
+.moon-start::after {
+  width: 15px;
+  height: 15px;
+  top: 120px;
+  left: 50px;
+  box-shadow:
+    40px 60px 0 rgba(0,0,0,0.15),
+    80px 10px 0 rgba(0,0,0,0.2);
+}

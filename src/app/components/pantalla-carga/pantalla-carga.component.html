@@ -1,0 +1,43 @@
+<div class="splash-container stars-background start text-center d-flex flex-column justify-content-center align-items-center vh-100 bg-dark text-white" style="gap: 0.5rem;">
+  <!-- Carrusel de imágenes -->
+  <div class="image-fader-wrapper">
+    <div class="circle-mask">
+      <img *ngFor="let img of imagenes; let i = index"
+           [src]="img"
+           class="fade-img"
+           [class.active]="i === imagenActual" />
+    </div>
+  </div>
+
+  <!-- Estrellas -->
+  <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
+    'top': estrella.top,
+    'left': estrella.left,
+    'animation-delay': estrella.delay,
+    'animation-duration': estrella.duration
+  }">
+    ✦
+  </div>
+  <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
+    'top': estrella.top,
+    'left': estrella.left,
+    'animation-delay': estrella.delay,
+    'animation-duration': estrella.duration
+  }">
+    ✧
+
+  </div>
+
+  <!-- Logo -->
+  <img src="SHOETRACK.png" style="height: 250px; width: 100%;">
+
+  <!-- Barra de carga con la imagen de fondo -->
+  <div class="progress-wrapper">
+    <div class="progress-bar-container">
+      <div class="progress-bar" [ngStyle]="{
+        'width.%': progreso
+      }"></div>
+      <img src="PreGift.png" class="zapato" [style.left.%]="progreso">
+    </div>
+  </div>
+</div>

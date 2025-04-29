@@ -1,0 +1,155 @@
+.image-fader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+  }
+  .circle-mask {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(
+      circle at 60% 40%,
+      #fff 20%,
+      #ffd1f9 60%,
+      #d89cff 100%
+    );
+    box-shadow: 0 0 30px #fff;
+    animation: moonPulse 1.5s ease-in-out infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Cráteres como pseudo-elementos */
+  .circle-mask::before,
+  .circle-mask::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0.4;
+    pointer-events: none; /* Para no interferir con interacciones */
+  }
+  
+  .circle-mask::before {
+    width: 20px;
+    height: 20px;
+    top: 60px;
+    left: 90px;
+    box-shadow: 
+      30px 20px 0 rgba(0,0,0,0.15),
+      60px 100px 0 rgba(0,0,0,0.12),
+      90px 50px 0 rgba(0,0,0,0.1);
+  }
+  
+  .circle-mask::after {
+    width: 15px;
+    height: 15px;
+    top: 120px;
+    left: 50px;
+    box-shadow:
+      40px 60px 0 rgba(0,0,0,0.15),
+      80px 10px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Animación de pulso lunar */
+  @keyframes moonPulse {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 30px #fff;
+    }
+    50% {
+      opacity: 0.85;
+      box-shadow: 0 0 50px #ffe6ff;
+    }
+  }
+  
+  
+  .fade-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    position: absolute;
+  }
+  
+  .fade-img.active {
+    opacity: 1;
+  }
+  
+
+  .progress-wrapper {
+      width: 90%; /* Puedes cambiar este porcentaje para controlar el largo total */
+      margin: 0 auto; /* Centra la barra horizontalmente */
+   }
+    
+    .progress-bar-container {
+      position: relative;
+      height: 30px; /* Controla aquí la altura */
+      background-color: #750c56; /* Fondo visible de la barra (puedes hacerlo transparente si no lo quieres) */
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-image: url('/huella.png');
+      background-size: auto 100%; /* Hace que la imagen se ajuste a la altura de la barra */
+      background-repeat: repeat-x;
+      background-color: rgb(0, 0, 0);
+      background-position: left center;
+      transition: width 100ms ease-in-out;
+      border-radius: 20px; /* Aplica redondeo en todos los lados */
+    }
+    
+    .zapato {
+      position: absolute;
+      bottom: -6px;
+      width: 70px;
+      height: auto;
+      background-color: #e7e7e700;
+      transition: left 100ms ease-in-out;
+    }
+    
+
+    .splash-container {
+      gap: 0rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(-100deg, rgb(0, 0, 0) 0%, rgb(52, 23, 35) 30%, rgb(81, 44, 73) 50%, rgb(101, 55, 83) 70%, rgb(181, 88, 100) 100%);
+      z-index: 1000;
+      transform-origin: top center;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 10.0); /* Filtro oscuro sutil en el interior */
+      overflow: hidden;
+      position: relative; /* Necesario para las estrellas */
+    
+    }
+    
+
+
+
+    .star {
+      position: absolute;
+      font-size: 2rem;
+      color: #fff;
+      opacity: 0;
+      animation: twinkle 1.5s ease-in-out infinite;
+    }
+    
+    /* Animación de titileo */
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+    
