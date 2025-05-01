@@ -1,5 +1,5 @@
 /* Logo */
-.navbar img {
+.navbarLogoimg {
     height: 100%;
     max-height: 60px;
     width: auto;
@@ -9,6 +9,19 @@
     overflow: hidden;
 
 }
+
+.logonavbar2 {
+    max-height: 150px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    animation: girarMoneda 7.5s ease-in-out infinite;
+    animation-delay: .5s; /* Delay entre giros */
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
 
 /* Navbar */
 .navbar {
@@ -30,6 +43,14 @@
     pointer-events: none;
     z-index: 0;
 }
+.offcanvas-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
 
 @keyframes twinkle {
     0%, 100% { opacity: 0; }
@@ -81,8 +102,11 @@
 
 .planet-section {
     position: relative;
-    height: 100%; /* Toma toda la altura disponible del contenedor */
-}
+    width: 100%;
+    height: 400px; /* o la altura visible deseada */
+    overflow: hidden; /* 👈 Evita que planetas salidos generen scroll */
+  }
+  
 
 .planet {
     position: absolute;
@@ -111,8 +135,68 @@
     pointer-events: none;
 }
 
-.fuente {
-    font-family: "Josefin Sans", sans-serif;
-    color: #dfb839;
+
+
+@keyframes girarMoneda {
+    0% {
+        transform: rotateY(0deg);
+      }
+      30% {
+        transform: rotateY(1440deg); /* 4 vueltas en 2.5s */
+      }
+      100% {
+        transform: rotateY(1440deg); /* Se queda en el mismo ángulo */
+      }
+  }
+  .planet.with-rings::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 30%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    animation: orbitRing 8s linear infinite;
+    z-index: -1;
+  }
   
-}
+  @keyframes orbitRing {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+  
+
+  .cart-container {
+    position: relative;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  
+  .cart-icon {
+    height: 100%;
+    max-height: 60px;
+    width: auto;
+    object-fit: contain;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+  }
+  

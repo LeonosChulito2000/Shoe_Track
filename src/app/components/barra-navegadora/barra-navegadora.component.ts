@@ -9,6 +9,14 @@ export class BarraNavegadoraComponent implements OnInit, AfterViewInit {
   estrellas: any[] = [];
   planetas: any[] = [];
 
+  itemsEnCarrito: number = 0; // Inicializa el contador de productos en el carrito
+
+  // Método para agregar productos al carrito
+  agregarAlCarrito() {
+    this.itemsEnCarrito++;
+  }
+
+
   ngOnInit(): void {
     // Generación de estrellas aleatorias
     this.generarEstrellas();

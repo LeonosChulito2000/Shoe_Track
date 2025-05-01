@@ -5,10 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { PantallaCargaComponent } from './components/pantalla-carga/pantalla-carga.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 
+//PANTALLA DE COMPRA
+import { CompraComponent } from './components/compra/compra.component';
 
 const routes: Routes = [
   { path: '', component: PantallaCargaComponent },
   { path: 'inicio', component: InicioComponent },
+  { path: 'Pre-Compra', component: CompraComponent },
 
 ];
 

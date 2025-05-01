@@ -9,9 +9,39 @@
   background: linear-gradient(-180deg, rgb(0, 0, 0) 0%, rgb(52, 23, 35) 30%, rgb(81, 44, 73) 50%, rgb(101, 55, 83) 70%, rgb(181, 88, 100) 100%);
   transform-origin: top center;
   box-shadow: inset 0 0 100px rgba(0, 0, 0, 10.0); /* Filtro oscuro sutil en el interior */
-  overflow: hidden;
+  overflow: auto;
   position: relative; /* Necesario para las estrellas */
+  min-height: 100vh;
+  overflow-y: scroll;         /* Permite el scroll vertical */
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE y Edge antiguos */
 }
+.splash-container::-webkit-scrollbar {
+  display: none;              /* Chrome, Safari y Opera */
+}
+
+
+/* splash-content oculto inicialmente */
+.splash-content {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s ease, transform 1s ease;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 50px);
+  text-align: center;
+  color: white;
+  pointer-events: none;
+}
+
+/* Cuando agregamos la clase "show", aparece suavemente */
+.splash-content.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
 
 /* Luna centrada en la parte superior, mostrando solo la mitad inferior */
 .moon-start {
@@ -99,3 +129,69 @@
     40px 60px 0 rgba(0,0,0,0.15),
     80px 10px 0 rgba(0,0,0,0.2);
 }
+
+
+.logonavbar2 {
+  max-height: 280px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  animation: girarMoneda 7.5s ease-in-out infinite;
+  animation-delay: .5s; /* Delay entre giros */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+
+
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas por defecto */
+  gap: 40px;
+  margin-top: 40px;
+  padding: 0 20px;
+}
+
+/* Pantallas medianas (tablets o similar) */
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas para pantallas medianas */
+  }
+}
+
+/* Pantallas grandes (escritorio) */
+@media (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas para pantallas grandes */
+  }
+}
+
+.grid-item {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+}
+
+.producto-imagen {
+  width: 100%;
+  max-width: 150px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.producto-nombre {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+

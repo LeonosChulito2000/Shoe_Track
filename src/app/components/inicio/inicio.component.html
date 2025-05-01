@@ -1,3 +1,21 @@
 <div class="splash-container">
-<div class="moon-start"></div>
+  <div class="moon-start"></div>
+
+  <!-- El contenido solo aparece cuando "mostrarContenido" es true -->
+  <div class="splash-content" [ngClass]="{'show': mostrarContenido}">
+    <a routerLink="/Pre-Compra"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
+
+    
+    <h1 class="resaltado">Holis</h1>
+    <div class="contenedor-principal">
+      <div class="grid-container">
+        <div class="grid-item" *ngFor="let producto of productos; let i = index">
+          <img [src]="producto.imagen" alt="Producto {{i + 1}}" class="producto-imagen" />
+          <p class="producto-nombre">{{ producto.nombre }}</p>
+          <button class="boton">Ver más</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
 </div>
