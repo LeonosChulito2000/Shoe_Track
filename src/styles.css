@@ -32,3 +32,37 @@
     background-color: #ff1a66;
   }
   
+
+  .resaltado {
+    padding: 0.5em 1em;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #dfb839;
+    font-weight: bold;
+    backdrop-filter: blur(2px);
+    text-align: center;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 110%;
+    width: 100%;
+    max-width: 500px;
+    padding: 1em 4em;              /* Espacio interno: arriba/abajo, izquierda/derecha */
+    /* NUEVAS LÍNEAS PARA CONTROLAR ALTURA */
+  }
+
+  
+.resaltado2 {
+  padding: 0.5em 1em;                 /* Espaciado interno */
+  border-radius: 12px;  
+  font-weight: bold;                 /* Resalta más el texto */
+  backdrop-filter: blur(2px);        /* Opcional: desenfoque suave del fondo */
+  text-align: center;
+  display:grid;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Josefin Sans", sans-serif;
+  color: #dfb839;
+  font-size: 110%;
+  width: 30%; /* Hace que el ancho se ajuste al contenedor */
+  max-width: 100%; /* Limita el ancho a un máximo de 500px */
+}
