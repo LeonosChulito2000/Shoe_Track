@@ -9,6 +9,7 @@ import { PantallaCargaComponent } from './components/pantalla-carga/pantalla-car
 import { BarraNavegadoraComponent } from './components/barra-navegadora/barra-navegadora.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CompraComponent } from './components/compra/compra.component';
+import { PanelAdminComponent } from './components/panel-admin/panel-admin.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,15 @@ import { CompraComponent } from './components/compra/compra.component';
     PantallaCargaComponent,
     BarraNavegadoraComponent,
     InicioComponent,
-    CompraComponent
+    CompraComponent,
+    BarraNavegadoraComponent,
+    PanelAdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule    
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

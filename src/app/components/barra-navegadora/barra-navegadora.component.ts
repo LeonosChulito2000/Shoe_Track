@@ -77,4 +77,7 @@ export class BarraNavegadoraComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+
+  
 }

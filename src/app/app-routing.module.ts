@@ -8,10 +8,16 @@ import { InicioComponent } from './components/inicio/inicio.component';
 //PANTALLA DE COMPRA
 import { CompraComponent } from './components/compra/compra.component';
 
+//PANTALAL DE PANEL DE ADMIN
+
+import { PanelAdminComponent } from './components/panel-admin/panel-admin.component';
+
+
 const routes: Routes = [
   { path: '', component: PantallaCargaComponent },
   { path: 'inicio', component: InicioComponent },
   { path: 'Pre-Compra', component: CompraComponent },
+  { path: 'Admin', component: PanelAdminComponent }
 
 ];
 

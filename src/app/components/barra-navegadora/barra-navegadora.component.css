@@ -66,9 +66,7 @@
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
     overflow-y: hidden;
-    padding: 1rem;
- 
-    
+    padding: 1rem; 
 }
 
 .navbar-nav {
@@ -200,3 +198,18 @@
     font-weight: bold;
   }
   
+  .admin-footer-link {
+    position: fixed; /* O absolute si ya sabes el contexto */
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: auto;
+  }
+  
+.admin-footer-link img {
+  max-height: 100px;
+  cursor: pointer;
+}

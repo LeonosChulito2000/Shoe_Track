@@ -4,7 +4,7 @@
 
     <div class="offcanvas offcanvas-end fuente" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <a routerLink="/Inicio"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
+        <a href="/"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
 
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
@@ -51,20 +51,28 @@
         </div>
         
 
-        <!-- Estrellas generadas dinámicamente dentro de la navbar -->
-    <div class="navbar-stars">
-      <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
-        'top': estrella.top,
-        'left': estrella.left,
-        'animation-delay': estrella.delay,
-        'animation-duration': estrella.duration,
-        'font-size': estrella.size
-      }">    ✧
-    </div>
-    </div>
+            <!-- Estrellas generadas dinámicamente dentro de la navbar -->
+        <div class="navbar-stars">
+          <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
+            'top': estrella.top,
+            'left': estrella.left,
+            'animation-delay': estrella.delay,
+            'animation-duration': estrella.duration,
+            'font-size': estrella.size
+          }">    ✧
+       </div>
+
+         <!-- Imagen fija al fondo del offcanvas -->
+         <div class="admin-footer-link">
+          <a routerLink="/Admin" data-bs-dismiss="offcanvas">
+            <img src="admin.png" alt="Logo" />
+          </a>
+        </div>
         
       </div>
+        
     </div>
+  </div>
 
     <a routerLink="/"><img src="Logo1.png" alt="Logo" class="navbarLogoimg" /></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
