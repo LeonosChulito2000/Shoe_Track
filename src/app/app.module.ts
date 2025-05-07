@@ -9,7 +9,8 @@ import { PantallaCargaComponent } from './components/pantalla-carga/pantalla-car
 import { BarraNavegadoraComponent } from './components/barra-navegadora/barra-navegadora.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CompraComponent } from './components/compra/compra.component';
-import { PanelAdminComponent } from './components/panel-admin/panel-admin.component';
+import { PanelAdminComponent } from './adminComponents/panel-admin/panel-admin.component';
+import { NuevoZapatoComponent } from './adminComponents/nuevo-zapato/nuevo-zapato.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PanelAdminComponent } from './components/panel-admin/panel-admin.compon
     InicioComponent,
     CompraComponent,
     BarraNavegadoraComponent,
-    PanelAdminComponent
+    PanelAdminComponent,
+    NuevoZapatoComponent
   ],
   imports: [
     BrowserModule,

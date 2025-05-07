@@ -1,0 +1,53 @@
+<div class="fondoAdmin min-vh-100 d-flex flex-column justify-content-center align-items-center">
+
+<form (ngSubmit)="onSubmit()" #zapatoForm="ngForm" enctype="multipart/form-data" class="resaltado2 ">
+  <div class="form-row resaltado">
+    Nombre del zapato
+    <input type="text" name="nombre" [(ngModel)]="zapato.nombre" required placeholder="Nombre del zapato" />
+  </div>
+  
+<!-- Precio -->
+<div class="form-row resaltado">
+  Precio
+  <input type="text" name="precio" [(ngModel)]="zapato.precio" required placeholder="$0.00" />
+</div>
+
+  <div class="form-row resaltado">
+    Tallas disponibles
+    <input type="text" name="tallas" [(ngModel)]="zapato.tallas" required placeholder="(ej. 38,39,40)" />
+  </div>
+
+  <div class="form-row resaltado">
+    <label>Colores disponibles:</label>
+    <div *ngFor="let color of coloresDisponibles" class="color-selection">
+      <input type="checkbox" [value]="color.nombre" (change)="onColorChange($event)" />
+      <span [style.backgroundColor]="color.codigo" class="color-circle"></span> {{ color.nombre }}
+    </div>
+  </div>
+
+  <!-- Materiales disponibles -->
+<div class="form-row resaltado">
+  <label>Material del zapato:</label>
+  <div *ngFor="let material of materialesDisponibles" class="material-selection">
+    <input type="checkbox" [value]="material" (change)="onMaterialChange($event)" />
+    {{ material }}
+  </div>
+</div>
+  
+  <div class="form-row resaltado">
+    Stock
+    <input type="number" name="stock" [(ngModel)]="zapato.stock" required placeholder="Cantidad en stock" />
+  </div>
+
+  <div class="form-row resaltado">
+    <label for="fileInput" class="boton">Seleccionar archivo</label>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" required />
+    <span class="file-name" *ngIf="fileName">{{ fileName }}</span>
+    <span class="no-file" *ngIf="!fileName">Ningún archivo seleccionado</span>
+  </div>
+  
+
+  <div class="form-row resaltado ">
+    <button class="boton" type="submit">Subir zapato</button>
+  </div>
+</form>
