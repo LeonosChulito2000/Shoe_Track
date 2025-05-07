@@ -9,14 +9,17 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { CompraComponent } from './components/compra/compra.component';
 
 //PANTALAL DE PANEL DE ADMIN
+import { LogginAdminComponent } from './adminComponents/loggin-admin/loggin-admin.component';
 import { PanelAdminComponent } from './adminComponents/panel-admin/panel-admin.component';
 import { NuevoZapatoComponent } from './adminComponents/nuevo-zapato/nuevo-zapato.component';
+
 
 
 const routes: Routes = [
   { path: '', component: PantallaCargaComponent },
   { path: 'inicio', component: InicioComponent },
   { path: 'Pre-Compra', component: CompraComponent },
+  { path: 'AdminLogin', component: LogginAdminComponent },
   { path: 'Admin', component: PanelAdminComponent },
   { path: 'NuevoZapato', component: NuevoZapatoComponent },
 

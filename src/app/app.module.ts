@@ -11,6 +11,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { CompraComponent } from './components/compra/compra.component';
 import { PanelAdminComponent } from './adminComponents/panel-admin/panel-admin.component';
 import { NuevoZapatoComponent } from './adminComponents/nuevo-zapato/nuevo-zapato.component';
+import { LogginAdminComponent } from './adminComponents/loggin-admin/loggin-admin.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NuevoZapatoComponent } from './adminComponents/nuevo-zapato/nuevo-zapat
     CompraComponent,
     BarraNavegadoraComponent,
     PanelAdminComponent,
-    NuevoZapatoComponent
+    NuevoZapatoComponent,
+    LogginAdminComponent
   ],
   imports: [
     BrowserModule,
