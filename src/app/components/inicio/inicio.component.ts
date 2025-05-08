@@ -1,30 +1,59 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';  
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.css'
+  styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
+  productos: any[] = [];
+  tituloBusqueda: string = 'Productos Nuevos';
+  mostrarContenido: boolean = false;
+  backendUrl: string = environment.backendUrl;
 
-  mostrarContenido = false;
+  // Para el modal
+  selectedProduct: any = null;
+  showModal: boolean = false;
 
-  productos = [
-    { nombre: 'Producto 1', imagen: 'INI1.png' },
-    { nombre: 'Producto 2', imagen: 'INI2.png' },
-    { nombre: 'Producto 3', imagen: 'INI3.png' },
-    { nombre: 'Producto 4', imagen: 'INI4.png' },
-    { nombre: 'Producto 5', imagen: 'INI5.png' },
-    { nombre: 'Producto 6', imagen: 'INI6.png' },
-    { nombre: 'Producto 7', imagen: 'INI7.png' },
-    { nombre: 'Producto 8', imagen: 'INI8.png' }
-  //  { nombre: 'Producto 9', imagen: 'INI.png' }
-  ];
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
+    // Al entrar a la ruta, leer el parámetro "search"
+    this.route.queryParams.subscribe(params => {
+      const search = params['search'];
+      if (search && search.trim() !== '') {
+        this.tituloBusqueda = `Resultados para: ${search}`;
+        this.buscarProductos(search);
+      } else {
+        this.tituloBusqueda = 'Productos Nuevos';
+        this.buscarProductos('');  // Llamada para obtener los productos más recientes
+      }
+    });
+    
     setTimeout(() => {
       this.mostrarContenido = true;
     }, 5500);
   }
-}
 
+  buscarProductos(query: string) {
+    this.http.get<any[]>(`${this.backendUrl}/buscar_zapatos.php?query=${query}`)
+      .subscribe(data => {
+        this.productos = data;
+      });
+  }
+
+  // Funciones para el modal
+  verMas(producto: any) {
+    this.selectedProduct = producto;
+    this.showModal = true;
+  }
+
+  cerrarModal() {
+    this.showModal = false;
+    this.selectedProduct = null;
+  }
+  
+}

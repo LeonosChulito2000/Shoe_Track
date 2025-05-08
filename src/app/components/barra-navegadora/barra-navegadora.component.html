@@ -1,19 +1,15 @@
-<nav class="navbar bg-dark border-bottom border-body " data-bs-theme="dark">
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
-
-
     <div class="offcanvas offcanvas-end fuente" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <a routerLink="/Inicio"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
-
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-
       <div class="offcanvas-body">
         <!-- Contenido principal -->
         <div class="main-offcanvas-content">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item ">
+            <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item dropdown">
@@ -28,60 +24,27 @@
               </ul>
             </li>
           </ul>
-      
-          <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+          <!-- Buscador -->
+          <form class="d-flex mt-3" (ngSubmit)="buscarZapatos()">
+            <input name="search" [(ngModel)]="query" class="form-control me-2" type="search" placeholder="Buscar Zapatos" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
           </form>
         </div>
-        
-
         <div class="planet-section">
-          <div *ngFor="let planeta of planetas; let i = index" 
-               class="planet" 
-               [class.with-rings]="i < 4"
-               [ngStyle]="{
-                 'top': planeta.top,
-                 'left': planeta.left,
-                 'width': planeta.width,
-                 'height': planeta.height,
-                 'background': planeta.background
-               }">
-          </div>
+          <div *ngFor="let planeta of planetas; let i = index" class="planet" [class.with-rings]="i < 4" [ngStyle]="{ 'top': planeta.top, 'left': planeta.left, 'width': planeta.width, 'height': planeta.height, 'background': planeta.background }"></div>
         </div>
-        
-
-        <!-- Estrellas generadas dinámicamente dentro de la navbar -->
-    <div class="navbar-stars">
-      <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
-        'top': estrella.top,
-        'left': estrella.left,
-        'animation-delay': estrella.delay,
-        'animation-duration': estrella.duration,
-        'font-size': estrella.size
-      }">    ✧
-    </div>
-    </div>
-        
+        <!-- Estrellas dinámicas -->
+        <div class="navbar-stars">
+          <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{ 'top': estrella.top, 'left': estrella.left, 'animation-delay': estrella.delay, 'animation-duration': estrella.duration, 'font-size': estrella.size }">✧</div>
+        </div>
       </div>
     </div>
-
     <a routerLink="/"><img src="Logo1.png" alt="Logo" class="navbarLogoimg" /></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-
   </div>
-    <!-- Estrellas generadas dinámicamente dentro de la navbar -->
-    <div class="navbar-stars">
-      <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
-        'top': estrella.top,
-        'left': estrella.left,
-        'animation-delay': estrella.delay,
-        'animation-duration': estrella.duration,
-        'font-size': estrella.size
-      }">✦</div>
-    </div>
-    
+  <div class="navbar-stars">
+    <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{ 'top': estrella.top, 'left': estrella.left, 'animation-delay': estrella.delay, 'animation-duration': estrella.duration, 'font-size': estrella.size }">✦</div>
+  </div>
 </nav>

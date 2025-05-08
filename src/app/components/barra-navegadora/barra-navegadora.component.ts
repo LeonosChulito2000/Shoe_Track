@@ -1,79 +1,60 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';  // Para la navegación con parámetros
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment'; // URL del backend
 
 @Component({
   selector: 'app-barra-navegadora',
   templateUrl: './barra-navegadora.component.html',
   styleUrls: ['./barra-navegadora.component.css']
 })
-export class BarraNavegadoraComponent implements OnInit, AfterViewInit {
+export class BarraNavegadoraComponent implements OnInit {
+  query: string = ''; // Texto de búsqueda
+  backendUrl: string = environment.backendUrl;
   estrellas: any[] = [];
   planetas: any[] = [];
 
-  itemsEnCarrito: number = 0; // Inicializa el contador de productos en el carrito
-
-  // Método para agregar productos al carrito
-  agregarAlCarrito() {
-    this.itemsEnCarrito++;
-  }
-
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    // Generación de estrellas aleatorias
     this.generarEstrellas();
-  }
-
-  ngAfterViewInit(): void {
-    // Después de que la vista se inicialice, generar los planetas
     this.generarPlanetas();
   }
 
+  buscarZapatos() {
+    if (this.query.trim() === '') return; // Evita búsquedas vacías
+    // Navega a la ruta /Inicio pasando la clave 'search'
+    this.router.navigate(['/inicio'], { queryParams: { search: this.query } });
+  }
+
   generarEstrellas(): void {
-    const cantidadEstrellas = 15 + Math.floor(Math.random() * 15); // Entre 10 y 20 estrellas
-
+    this.estrellas = []; // Limpiar array
+    const cantidadEstrellas = 15 + Math.floor(Math.random() * 15);
     for (let i = 0; i < cantidadEstrellas; i++) {
-      const top = Math.random() * 60 + 10; // Posición vertical aleatoria (de 10% a 70%)
-      const left = Math.random() * 100; // Posición horizontal aleatoria (de 0% a 100%)
-      const delay = Math.random() * 3; // Retraso aleatorio antes de que empiece a titilar
-      const duration = 1 + Math.random() * 2; // Duración aleatoria del titileo
-      const size = 0.5 + Math.random() * 1; // Tamaño aleatorio entre 0.5 y 2 rem
-
-      // Guardamos los detalles de la estrella en el array
       this.estrellas.push({
-        top: `${top}%`,
-        left: `${left}%`,
-        delay: `${delay}s`,
-        duration: `${duration}s`,
-        size: `${size}rem`  // Tamaño aleatorio
+        top: `${Math.random() * 60 + 10}%`,
+        left: `${Math.random() * 100}%`,
+        delay: `${Math.random() * 3}s`,
+        duration: `${1 + Math.random() * 2}s`,
+        size: `${0.5 + Math.random() * 1}rem`
       });
     }
   }
 
   generarPlanetas(): void {
-    const cantidadPlanetas = 8;  // Número de planetas a generar
+    this.planetas = []; // Limpiar array
     const coloresPlanetas = [
       'radial-gradient(circle at 30% 30%, #a29bfe, #6c5ce7)',
       'radial-gradient(circle at 30% 30%, #55efc4, #00cec9)',
-      'radial-gradient(circle at 30% 30%, #ffeaa7, #fab1a0)',
-      'radial-gradient(circle at 30% 30%, #fd79a8, #e84393)',
-      'radial-gradient(circle at 30% 30%, #74b9ff, #0984e3)',
-      'radial-gradient(circle at 30% 30%, #e17055, #d63031)',
-      'radial-gradient(circle at 30% 30%, #00b894, #00cec9)',
-      'radial-gradient(circle at 30% 30%, #636e72, #2d3436)'
+      'radial-gradient(circle at 30% 30%, #ffeaa7, #fab1a0)'
     ];
-
-    for (let i = 0; i < cantidadPlanetas; i++) {
-      const tamano = Math.floor(Math.random() * (80 - 30 + 1)) + 30;  // Tamaño aleatorio entre 30px y 80px
-      const color = coloresPlanetas[Math.floor(Math.random() * coloresPlanetas.length)];
-      const top = Math.random() * 100;  // Posición vertical aleatoria (de 0% a 100%)
-      const left = Math.random() * 100;  // Posición horizontal aleatoria (de 0% a 100%)
-
-      // Guardamos los detalles del planeta en el array
+    for (let i = 0; i < 8; i++) {
       this.planetas.push({
-        top: `${top}%`,
-        left: `${left}%`,
-        width: `${tamano}px`,
-        height: `${tamano}px`,
-        background: color
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        width: `${Math.floor(Math.random() * (80 - 30 + 1)) + 30}px`,
+        height: `${Math.floor(Math.random() * (80 - 30 + 1)) + 30}px`,
+        background: coloresPlanetas[Math.floor(Math.random() * coloresPlanetas.length)]
       });
     }
   }

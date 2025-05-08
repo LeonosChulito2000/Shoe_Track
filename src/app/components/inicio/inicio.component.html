@@ -1,21 +1,33 @@
-<div class="splash-container">
+<div class="splash-container" *ngIf="mostrarContenido">
   <div class="moon-start"></div>
-
-  <!-- El contenido solo aparece cuando "mostrarContenido" es true -->
-  <div class="splash-content" [ngClass]="{'show': mostrarContenido}">
+  <div class="splash-content show">
     <a routerLink="/Pre-Compra"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
-
-    
-    <h1 class="resaltado">Holis</h1>
+    <h1 class="resaltado">{{ tituloBusqueda }}</h1>
     <div class="contenedor-principal">
       <div class="grid-container">
         <div class="grid-item" *ngFor="let producto of productos; let i = index">
+          <!-- Etiqueta con el precio -->
+          <div class="producto-precio">${{ producto.precio }}</div>
           <img [src]="producto.imagen" alt="Producto {{i + 1}}" class="producto-imagen" />
           <p class="producto-nombre">{{ producto.nombre }}</p>
-          <button class="boton">Ver más</button>
+          <p class="producto-info">Tallas: {{ producto.tallas }} | Stock: {{ producto.stock }}</p>
+          <button class="boton" (click)="verMas(producto)">Ver más</button>
         </div>
       </div>
     </div>
-    
   </div>
 </div>
+
+<!-- Modal: se muestra si showModal es true -->
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal-content">
+    <span class="close-button" (click)="cerrarModal()">&times;</span>
+    <img [src]="selectedProduct?.imagen" alt="{{selectedProduct?.nombre}}" class="modal-imagen" />
+    <h2>{{ selectedProduct?.nombre }}</h2>
+    <p>Precio: ${{ selectedProduct?.precio }}</p>
+    <p>Tallas disponibles: {{ selectedProduct?.tallas }}</p>
+    <p>Stock: {{ selectedProduct?.stock }}</p>
+    <button class="añadir-cesta">Añadir a la Cesta</button>
+  </div>
+</div>
+
