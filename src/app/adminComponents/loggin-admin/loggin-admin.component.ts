@@ -6,6 +6,7 @@ import { AdminAuthService } from '../../services/admin-auth.service';
 @Component({
   selector: 'app-loggin-admin',
   templateUrl: './loggin-admin.component.html',
+  styleUrls: ['./loggin-admin.component.css'] // ← corregido aquí
 })
 export class LogginAdminComponent {
   username = '';

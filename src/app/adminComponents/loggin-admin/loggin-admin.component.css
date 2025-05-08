@@ -1,0 +1,38 @@
+.logoimg {
+    width: 300px;         /* Tamaño base */
+    max-width: 100%;      /* No exceder el ancho del contenedor */
+    height: auto;         /* Mantiene proporción */
+    display: block;       /* Evita espacios debajo */
+    margin: 0 auto;       /* Centrada si está dentro de un contenedor con ancho limitado */
+  }
+  
+  
+  .fondoAdminpre {
+  
+  
+    background-color: #000;
+    width: 100%;
+    height: 100vh;
+    z-index: 0; /* Debe estar debajo de contenido interactivo */
+    top: 0;
+    left: 0;
+    background: linear-gradient(145deg, #000010 0%, #0a0a3c 20%, #4b0082 40%, #330066 60%, #4b0082 80%, #800080 100%);
+    transform-origin: top center;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 10.0); /* Filtro oscuro sutil en el interior */
+    overflow: auto;
+    position: relative; /* Necesario para las estrellas */
+    min-height: 100vh;
+    overflow-y: scroll;         /* Permite el scroll vertical */
+    scrollbar-width: none;      /* Firefox */
+    -ms-overflow-style: none;   /* IE y Edge antiguos */
+  
+    
+  }
+  
+  .resaltadoexrr{
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+  
+  }
+  
