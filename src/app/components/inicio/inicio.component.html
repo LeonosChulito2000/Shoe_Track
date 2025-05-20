@@ -1,21 +1,112 @@
-<div class="splash-container">
+<div class="splash-container" style="font-weight: bold;  font-family: Josefin Sans, sans-serif;">
   <div class="moon-start"></div>
 
-  <!-- El contenido solo aparece cuando "mostrarContenido" es true -->
   <div class="splash-content" [ngClass]="{'show': mostrarContenido}">
-    <a routerLink="/Pre-Compra"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
+   
+   <br>
+<br>
 
-    
-    <h1 class="resaltado">Holis</h1>
+ <a routerLink="/Pre-Compra">
+      <img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" />
+    </a>
+
     <div class="contenedor-principal">
       <div class="grid-container">
-        <div class="grid-item" *ngFor="let producto of productos; let i = index">
-          <img [src]="producto.imagen" alt="Producto {{i + 1}}" class="producto-imagen" />
+        <div class="grid-item" *ngFor="let producto of productos">
+          <img [src]="'./NewZapatos/' + producto.imagen" alt="{{ producto.nombre }}"
+               style="width: 100%; max-height: 150px; object-fit: contain; margin-bottom: 0.5em;" />
+
           <p class="producto-nombre">{{ producto.nombre }}</p>
-          <button class="boton">Ver más</button>
+          <p style="color: #00fd0d; font-size: 150%">Precio: ${{ producto.precio }}</p>
+          <p style="color: #dfb839; font-size: 110%">Stock: {{ producto.stock }}</p>
+
+<button 
+  class="boton sin-stock" 
+  *ngIf="producto.stock == 0" 
+  >
+  SIN STOCK, PRONTO VOLVERÁN
+</button>
+          <button 
+  class="boton" 
+  *ngIf="producto.stock > 0" 
+  (click)="verMas(producto)">
+  Ver más
+</button>
+
+
         </div>
       </div>
     </div>
-    
   </div>
+
+  <!-- Modal de detalle -->
+  <div class="modal" *ngIf="productoSeleccionado">
+    <div class="modal-content">
+      <span class="close" (click)="cerrarModal()">❌</span>
+
+      <div class="modal-body">
+        <!-- Imagen a la izquierda en pantallas grandes -->
+        <img [src]="'./NewZapatos/' + productoSeleccionado.imagen" alt="{{ productoSeleccionado.nombre }}" />
+
+        <div class="modal-details">
+          <h3 style="text-align:center; margin-bottom: 1em;">
+            SKU: {{ productoSeleccionado.codigo_barras }}
+          </h3>
+
+          <h2>{{ productoSeleccionado.nombre }}</h2>
+
+          <p><strong>Precio:</strong> ${{ productoSeleccionado.precio }}.00</p>
+
+          <p><strong>Materiales disponibles:</strong></p>
+<div>
+  <button class="BotonColor"
+          *ngFor="let material of productoSeleccionado.materialesArray"
+          (click)="materialSeleccionado = material"
+          [ngClass]="{'seleccionado': materialSeleccionado === material}">
+    {{ material }}
+  </button>
+</div>
+
+
+          <p><strong>Colores disponibles:</strong></p>
+          <div>
+            <button class = "BotonColor"
+                    *ngFor="let color of productoSeleccionado.coloresArray"
+                    (click)="colorSeleccionado = color"
+                    [ngClass]="{'seleccionado': colorSeleccionado === color}">
+              {{ color }}
+            </button>
+          </div>
+
+          <p><strong>Tallas disponibles:</strong></p>
+          <select [(ngModel)]="tallaSeleccionada">
+            <option [ngValue]="null" disabled selected>Selecciona talla</option>
+            <option *ngFor="let talla of productoSeleccionado.tallasArray" [value]="talla">{{ talla }}</option>
+          </select>
+
+          <p><strong>Stock disponible:</strong> {{ productoSeleccionado.stock }}</p>
+
+          <button [disabled]="!puedeAgregarAlCarrito()" (click)="agregarAlCarrito()" class="boton">
+            Agregar al carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación -->
+<div class="modal modal-secundario" *ngIf="mostrarConfirmacion">
+  <div class="modal-content confirmacion-content">
+    <span class="close" (click)="mostrarConfirmacion = false">❌</span>
+    <p style="font-size:200%;  color: #dfb839;  font-weight: bold;  font-family: Josefin Sans, sans-serif;">
+      <strong>Producto agregado</strong>
+    </p>
+    <p style="font-size:150%;  color: #dfb839;  font-weight: bold;  font-family: Josefin Sans, sans-serif;"> 
+      ¡Cómpralo antes de que se acaben! 😄
+    </p>
+    <button class="boton" (click)="mostrarConfirmacion = false">Entendido</button>
+  </div>
+</div>
+
+
 </div>

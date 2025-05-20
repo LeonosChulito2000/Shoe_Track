@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-compra',
@@ -26,7 +27,7 @@ export class CompraComponent {
   mensaje = '';
   usuarioExiste = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   buscarUsuario() {
     if (!this.correoInput) return;
@@ -78,6 +79,17 @@ export class CompraComponent {
     return `${anio}-${mes}-${dia}`;
   }
   
+  mostrarModal = false;
+mensajeModal = '';
+camposActualizados: string[] = [];
+
+cerrarModal() {
+  this.mostrarModal = false;
+  this.mensajeModal = '';
+  this.camposActualizados = [];
+}
+
+
   hayCambios(): boolean {
     return Object.keys(this.datosUsuario).some(key => {
       return this.datosUsuario[key] !== this.originalData[key];
@@ -95,25 +107,68 @@ export class CompraComponent {
     textarea.style.height = Math.min(textarea.scrollHeight, maxAltura) + 'px';
   }
   
-  onSubmit() {
-    const endpoint = this.usuarioExiste && this.hayCambios()
-      ? 'actualizar_usuario.php'
-      : 'registrar_usuario.php';
-
-    const payload = { ...this.datosUsuario };
-
-    if (!this.usuarioExiste) {
-      payload.numero_pedidos = 1;
-    } else {
-      payload.numero_pedidos += 1;
-    }
-
-    const backendUrl = environment.backendUrl; // Usamos la URL del backend configurada en environment
-
-    this.http.post<any>(`${backendUrl}/${endpoint}`, payload).subscribe(response => {
-      alert(response.message);
-      this.mostrarFormulario = false;
-    });
+  // Método para detectar campos cambiados permitidos (telefono y direccion_envio)
+obtenerCamposCambiados(): string[] {
+  const campos = [];
+  if (this.datosUsuario.telefono !== this.originalData.telefono) {
+    campos.push('Teléfono');
   }
-  
+  if (this.datosUsuario.direccion_envio !== this.originalData.direccion_envio) {
+    campos.push('Dirección de envío');
+  }
+  return campos;
+}
+
+onSubmit() {
+  let endpoint = 'registrar_usuario.php';
+
+  const payload = { ...this.datosUsuario };
+
+  if (this.usuarioExiste) {
+    if (this.hayCambios()) {
+      endpoint = 'actualizar_usuario.php';
+      payload.numero_pedidos += 1;
+    } else {
+      // Usuario existe y no hay cambios, solo redirigir
+      this.router.navigate(['/Finaliza-la-Compra']);
+      return;
+    }
+  } else {
+    payload.numero_pedidos = 0;
+  }
+
+  const backendUrl = environment.backendUrl;
+
+  this.http.post<any>(`${backendUrl}/${endpoint}`, payload).subscribe(response => {
+    if (response.success) {
+      localStorage.setItem('datosUsuario', JSON.stringify(this.datosUsuario));
+      this.mostrarFormulario = false;
+
+      if (!this.usuarioExiste) {
+        this.mensajeModal = '🎉 ¡Felicidades por iniciar tu camino! 🎉\nQuédate con nosotros y recibirás premios en el futuro.';
+        this.mostrarModal = true;
+
+        setTimeout(() => {
+          this.mostrarModal = false;
+          this.router.navigate(['/Finaliza-la-Compra']);
+        }, 5000);
+      } else {
+        this.camposActualizados = this.obtenerCamposCambiados();
+        this.mensajeModal = 'Datos actualizados correctamente:';
+        this.mostrarModal = true;
+
+        setTimeout(() => {
+          this.mostrarModal = false;
+          this.router.navigate(['/Finaliza-la-Compra']);
+        }, 5000);
+      }
+    } else {
+      this.mensajeModal = 'Error al actualizar o registrar usuario.';
+      this.mostrarModal = true;
+    }
+  });
+}
+
+
+
 }

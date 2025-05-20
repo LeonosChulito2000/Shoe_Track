@@ -1,32 +1,39 @@
-<!-- loggin-admin.component.html -->
-<div class="fondoAdminpre resaltadoexrr">
-  <div class="">
-    <div class="resaltado ">
-      <h2>Login Admin</h2>
-      <h3>Shoe Track</h3>
+<div class="Admin">
+  <div class="login-container">
+    <div class="login-content decorador">
+      
+      <!-- Columna izquierda: Formulario -->
+      <div class="login-form">
+        <div class="resaltado">
+          <h2>Login Admin</h2>
+          <h3>Shoe Track</h3>
+        </div>
+
+        <div class="resaltado">
+          <label for="username">Usuario</label>
+          <br />
+          <input [(ngModel)]="username" id="username" placeholder="Usuario" />
+        </div>
+
+        <div class="resaltado">
+          <label for="password">Contraseña</label>
+          <br />
+          <input [(ngModel)]="password" id="password" placeholder="Contraseña" type="password" />
+        </div>
+
+        <br /><br />
+
+        <div class="resaltado">
+          <button class="boton" (click)="login()">Ingresar</button>
+          <div *ngIf="errorMessage" class="mensaje-error">{{ errorMessage }}</div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Logo -->
+      <div class="login-logo">
+        <a href="/inicio"><img src="LOGOSNFNDO.png" class="logoimg" /></a>
+      </div>
+
     </div>
- 
-
-    <div class="resaltado ">
-      <label for="username">Usuario</label>
-      <br>
-      <input [(ngModel)]="username" id="username" placeholder="Usuario" class="" />
-    </div>
-
-    <div class="resaltado">
-      <label for="password">Contraseña</label>
-      <br>
-      <input [(ngModel)]="password" id="password" placeholder="Contraseña" type="password" class="" />
-    </div>
-    <br><br>
-
-    <div class="resaltado">
-
-      <button class="boton" (click)="login()">Ingresar</button>
-
-    <div *ngIf="errorMessage" class="mensaje-error">{{ errorMessage }}</div>
   </div>
-</div>
-<a href="/"><img src="LOGOSNFNDO.png" class="logoimg" /></a>
-
 </div>

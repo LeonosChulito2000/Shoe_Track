@@ -1,0 +1,85 @@
+<div class="carrito-wrapper">
+  <!-- Fuera del wrapper de contenido -->
+<div class="Background"></div>
+
+  <div class="carrito-container" style="font-family: Josefin Sans, sans-serif;">
+    
+<!-- PRODUCTOS LISTA -->
+<div class="productos-lista decorador decorador-amplio">
+  <h1 class="resaltado">🛒 Productos en tu Pedido</h1>
+  <div class="producto-item" *ngFor="let item of carrito">
+    <div class="producto-info">
+      <img [src]="'./NewZapatos/' + item.imagen" alt="imagen producto" />
+      <div class="info">
+        <h2 class="nombre">{{ item.nombre }}</h2>
+        <br>
+        <div class="detalle-grid">
+          <div><strong>SKU:</strong><br>{{ item.sku }}</div>
+          <div><strong>Color:</strong><br>{{ item.color }}</div>
+          <div><strong>Talla:</strong><br>{{ item.talla }}</div>
+          <div><strong>Material:</strong><br>{{ item.material }}</div>
+          <div><strong>Cantidad:</strong><br>{{ item.cantidad }}</div>
+          <div><strong>Precio:</strong><br>${{ item.precio }}</div>
+        </div>
+        <div class="acciones">
+          <button (click)="agregarCantidad(item)">➕</button>
+          <button (click)="disminuirCantidad(item)">➖</button>
+          <button (click)="eliminarItem(item)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESUMEN -->
+<div class="resumen-carrito decorador">
+  <h2>Total del Pedido:</h2>
+  <h1 style="color: chartreuse;">${{ total }}</h1>
+
+  <h3 class="resaltado">📦 Datos de Entrega</h3>
+  <p><strong>Nombre de quien recibe:</strong><br>{{ usuario?.nombres }} {{ usuario?.apellido_paterno }} {{ usuario?.apellido_materno }}</p>
+  <p><strong>Dirección de envío:</strong><br>{{ usuario?.direccion_envio }}</p>
+
+  <div class="datos-entrega-grid">
+    <div>
+      <strong>Teléfono:</strong><br>{{ usuario?.telefono }}
+    </div>
+    <div>
+      <strong>Correo electrónico:</strong><br>{{ usuario?.correo }}
+    </div>
+  </div>
+<br>
+<br>
+  <p><strong>Fecha estimada de entrega:</strong><br>{{ fechaEntrega }}</p>
+
+  <button class="boton resaltado2" (click)="finalizarCompra()">
+    Finalizar compra 🧾
+  </button>
+</div>
+
+  </div>
+
+  <!-- MODAL -->
+<div class="modal modal-secundario" *ngIf="mostrarModal">
+  <div class="modal-content confirmacion-content">
+    <span class="close" (click)="cerrarModal()">❌</span>
+
+    <!-- Número de pedido arriba -->
+    <p style="font-size: 150%; font-weight: bold; color:aqua; margin-bottom: 1rem;">
+      NÚMERO DE PEDIDO: 
+      <br>
+      {{ numeroPedido }}
+    </p>
+
+    <p style="font-size: 200%; color: #dfb839; font-weight: bold;">🎉GRACIAS POR TU COMPRA 🎉</p>
+    <p style="font-size: 150%; color: #dfb839; font-weight: bold;">
+      PRONTO LLEGARÁ A TI :D<br><br>
+      O <br><br>
+      VISÍTANOS PARA RECOGERLO YA MISMO<br><br>
+      (Tienes 24 horas antes de que se envíe a la dirección: {{ usuario?.direccion_envio }})
+    </p>
+    <button class="boton" (click)="cerrarModal()">Entendido</button>
+  </div>
+</div>
+
+</div>

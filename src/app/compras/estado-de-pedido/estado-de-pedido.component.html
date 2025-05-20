@@ -1,0 +1,77 @@
+<!-- Fondo opcional -->
+<div class="Background"></div>
+
+<div class="contenedor-central" style="font-family: Josefin Sans, sans-serif;">
+
+  <!-- 🔍 Siempre visible: buscador -->
+  <div [ngClass]="{ 'busqueda-con-resultado': pedidoCargado }">
+    <div class="bloque-correo decorador redondo buscador-movible">
+      <label>Consulta tu número de pedido</label>
+      <br><br>
+      <input class="redondo" [(ngModel)]="idPedidoInput" (keyup.enter)="consultarPedido()" (input)="mensajeError = ''" />
+      <br><br>
+      <button class="boton resaltado2" (click)="consultarPedido()">Consultar</button>
+      <p *ngIf="mensajeError" style="color:red;">{{ mensajeError }}</p>
+    </div>
+
+    <!-- Solo visible si hay resultado -->
+    <div *ngIf="pedidoCargado" class="encabezado-pedido-movil decorador">
+      <div class="info-encabezado">
+        <h1 class="IdPedido">{{ idPedido }}</h1>
+        <p class="fecha-pedido">
+          Compra: <br> {{ fechaCompra }} <br> Entrega estimada: <br> {{ fechaEntrega }}
+        </p>
+      </div>
+      <span class="estado" [ngClass]="estado">{{ estado }}</span>
+    </div>
+  </div>
+
+  <!-- 🧾 Info del pedido -->
+  <div *ngIf="pedidoCargado" class="contenido-pedido">
+    <div class="contenedor-detalle">
+      
+      <!-- Lista productos -->
+      <div class="decorador decorador-amplio lista-productos decorador-amplio">
+        <h3>Productos</h3>
+<div *ngFor="let producto of productos" class="producto-item">
+  <div class="producto-contenedor">
+    
+    <!-- Nombre centrado arriba -->
+    <p class="nombre-producto"><strong>{{ producto.nombre_producto }}</strong></p>
+
+    <div class="contenido-producto">
+      <!-- Imagen a la izquierda -->
+      <img [src]="'NewZapatos/' + producto.imagen" alt="imagen producto" />
+
+      <!-- Info organizada a la derecha -->
+      <div class="info-tabla">
+        <div class="fila-info">
+          <div><strong>Color:</strong> {{ producto.color }}</div>
+          <div><strong>Material:</strong> {{ producto.material }}</div>
+          <div><strong>Talla:</strong> {{ producto.talla }}</div>
+        </div>
+        <div class="fila-info">
+          <div><strong>Cantidad:</strong> {{ producto.cantidad }}</div>
+          <div><strong>Precio:</strong> ${{ producto.precio }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      </div>
+
+      <!-- Datos cliente -->
+      <div class="decorador decorador-formulario datos-cliente">
+        <h3>Datos del comprador</h3>
+        <div class="campo-formulario"><label>Nombre:</label> {{ cliente.nombres }} {{ cliente.apellido_paterno }} {{ cliente.apellido_materno }}</div>
+        <div class="campo-formulario"><label>Correo:</label> {{ cliente.correo }}</div>
+        <div class="campo-formulario"><label>Teléfono:</label> {{ cliente.telefono }}</div>
+        <div class="campo-formulario"><label>Dirección:</label> {{ cliente.direccion_envio }}</div>
+        <div class="campo-formulario"><label>Fecha de registro:</label> {{ cliente.fecha_registro }}</div>
+      </div>
+    </div>
+  </div>
+
+</div>

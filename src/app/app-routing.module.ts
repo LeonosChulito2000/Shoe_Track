@@ -6,7 +6,10 @@ import { PantallaCargaComponent } from './components/pantalla-carga/pantalla-car
 import { InicioComponent } from './components/inicio/inicio.component';
 
 //PANTALLA DE COMPRA
-import { CompraComponent } from './components/compra/compra.component';
+import { CompraComponent } from './compras/compra/compra.component';
+import { CarritoDeComprasComponent } from './compras/carrito-de-compras/carrito-de-compras.component';
+import { FinalizaCompraComponent } from './compras/finaliza-compra/finaliza-compra.component';
+import { EstadoDePedidoComponent } from './compras/estado-de-pedido/estado-de-pedido.component';
 
 //PANTALAL DE PANEL DE ADMIN
 import { LogginAdminComponent } from './adminComponents/loggin-admin/loggin-admin.component';
@@ -18,10 +21,13 @@ import { NuevoZapatoComponent } from './adminComponents/nuevo-zapato/nuevo-zapat
 const routes: Routes = [
   { path: '', component: PantallaCargaComponent },
   { path: 'inicio', component: InicioComponent },
-  { path: 'Pre-Compra', component: CompraComponent },
+  { path: 'Usuario-de-Compra', component: CompraComponent },
   { path: 'AdminLogin', component: LogginAdminComponent },
   { path: 'Admin', component: PanelAdminComponent },
   { path: 'NuevoZapato', component: NuevoZapatoComponent },
+  { path: 'Carrito-de-Compras', component: CarritoDeComprasComponent },
+  { path: 'Finaliza-la-Compra', component: FinalizaCompraComponent },
+  { path: 'estado-pedido', component: EstadoDePedidoComponent }
 
 ];
 

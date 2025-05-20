@@ -1,4 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CarritoService } from '../../services/carrito.service';
+
 
 @Component({
   selector: 'app-barra-navegadora',
@@ -11,16 +14,27 @@ export class BarraNavegadoraComponent implements OnInit, AfterViewInit {
 
   itemsEnCarrito: number = 0; // Inicializa el contador de productos en el carrito
 
+
   // Método para agregar productos al carrito
   agregarAlCarrito() {
     this.itemsEnCarrito++;
   }
 
+  // Dentro del constructor:
+constructor(private carritoService: CarritoService, private router: Router) {}
+
+irAlCarrito() {
+  this.router.navigate(['/Carrito-de-Compras']);
+}
+
 
   ngOnInit(): void {
-    // Generación de estrellas aleatorias
-    this.generarEstrellas();
-  }
+  this.generarEstrellas();
+  this.carritoService.totalItems$.subscribe(count => {
+    this.itemsEnCarrito = count;
+  });
+}
+
 
   ngAfterViewInit(): void {
     // Después de que la vista se inicialice, generar los planetas

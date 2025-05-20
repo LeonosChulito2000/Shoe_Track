@@ -1,53 +1,146 @@
-<div class="fondoAdmin min-vh-100 d-flex flex-column justify-content-center align-items-center">
 
-<form (ngSubmit)="onSubmit()" #zapatoForm="ngForm" enctype="multipart/form-data" class="resaltado2 ">
-  <div class="form-row resaltado">
-    Nombre del zapato
-    <input type="text" name="nombre" [(ngModel)]="zapato.nombre" required placeholder="Nombre del zapato" />
-  </div>
-  
-<!-- Precio -->
-<div class="form-row resaltado">
-  Precio
-  <input type="text" name="precio" [(ngModel)]="zapato.precio" required placeholder="$0.00" />
+  <div class="espacio">
+  <div class="Admin"></div>
+
+  <form
+    (ngSubmit)="onSubmit()"
+    #zapatoForm="ngForm"
+    enctype="multipart/form-data"
+    class="formulario-zapato decorador"
+  >
+    <h2 class="titulo-formulario">Agregar Nuevo Zapato</h2>
+
+    
+    <div class="campo-form codigo-barras full-width">
+  <label>Código de Barras</label>
+  <input
+  class="centertodo"
+    type="text"
+    name="codigo_barras"
+    [(ngModel)]="zapato.codigo_barras"
+    
+  />
 </div>
 
-  <div class="form-row resaltado">
-    Tallas disponibles
-    <input type="text" name="tallas" [(ngModel)]="zapato.tallas" required placeholder="(ej. 38,39,40)" />
-  </div>
 
-  <div class="form-row resaltado">
-    <label>Colores disponibles:</label>
-    <div *ngFor="let color of coloresDisponibles" class="color-selection">
-      <input type="checkbox" [value]="color.nombre" (change)="onColorChange($event)" />
-      <span [style.backgroundColor]="color.codigo" class="color-circle"></span> {{ color.nombre }}
+    <div class="grid-form">
+      <div class="campo-form">
+        <label>Nombre del zapato</label>
+        <input
+          type="text"
+          name="nombre"
+          [(ngModel)]="zapato.nombre"
+          required
+          placeholder="Nombre del zapato"
+        />
+      </div>
+
+      <div class="campo-form">
+        <label>Precio</label>
+        <input
+          type="text"
+          name="precio"
+          [(ngModel)]="zapato.precio"
+          required
+          placeholder="$0.00"
+        />
+      </div>
+
+      <div class="campo-form">
+        <label>Tallas disponibles</label>
+        <input
+          type="text"
+          name="tallas"
+          [(ngModel)]="zapato.tallas"
+          required
+          placeholder="Ej: 20, 21, 22"
+        />
+      </div>
+
+      <div class="campo-form">
+        <label>Stock</label>
+        <input
+          type="number"
+          name="stock"
+          [(ngModel)]="zapato.stock"
+          required
+          placeholder="Cantidad en stock"
+        />
+      </div>
     </div>
-  </div>
 
-  <!-- Materiales disponibles -->
-<div class="form-row resaltado">
-  <label>Material del zapato:</label>
-  <div *ngFor="let material of materialesDisponibles" class="material-selection">
-    <input type="checkbox" [value]="material" (change)="onMaterialChange($event)" />
-    {{ material }}
+    <div class="campo-form colores-materiales">
+      <label>Colores disponibles:</label>
+      <div class="opciones">
+        <div *ngFor="let color of coloresDisponibles" class="opcion color">
+          <input
+            type="checkbox"
+            [value]="color.nombre"
+            (change)="onColorChange($event)"
+          />
+          <span
+            [style.backgroundColor]="color.codigo"
+            class="color-circle"
+          ></span>
+          {{ color.nombre }}
+        </div>
+      </div>
+    </div>
+
+    <div class="campo-form colores-materiales">
+      <label>Material del zapato:</label>
+      <div class="opciones">
+        <div *ngFor="let material of materialesDisponibles" class="opcion material">
+          <input
+            type="checkbox"
+            [value]="material"
+            (change)="onMaterialChange($event)"
+          />
+          {{ material }}
+        </div>
+      </div>
+    </div>
+
+    <div class="campo-form archivo">
+      <label for="fileInput" class="boton">Seleccionar archivo</label>
+      <input
+        type="file"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+      <div class="nombre-archivo">
+        <span *ngIf="fileName">{{ fileName }}</span>
+        <span *ngIf="!fileName" class="no-file">Ningún archivo seleccionado</span>
+      </div>
+      <!-- Vista previa de la imagen -->
+      <div *ngIf="imagePreview" class="image-preview">
+        <img [src]="imagePreview" alt="Vista previa" />
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="boton" type="submit">Subir zapato</button>
+    </div>
+  </form>
+
+
+
+
+  <!-- Modal de Error -->
+<div *ngIf="showErrorModal" class="modal error-modal">
+  <div class="modal-content ">
+    <span class="close" (click)="closeErrorModal()">&times;</span>
+    <p>{{ errorMessage }}</p>
   </div>
 </div>
-  
-  <div class="form-row resaltado">
-    Stock
-    <input type="number" name="stock" [(ngModel)]="zapato.stock" required placeholder="Cantidad en stock" />
-  </div>
 
-  <div class="form-row resaltado">
-    <label for="fileInput" class="boton">Seleccionar archivo</label>
-    <input type="file" id="fileInput" (change)="onFileSelected($event)" required />
-    <span class="file-name" *ngIf="fileName">{{ fileName }}</span>
-    <span class="no-file" *ngIf="!fileName">Ningún archivo seleccionado</span>
+  <!-- Modal de Éxito (Producto registrado con éxito) -->
+<div *ngIf="showSuccessModal" class="modal success-modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeSuccessModal()">&times;</span>
+    <p>{{ successMessage }}</p>
   </div>
-  
+</div>
 
-  <div class="form-row resaltado ">
-    <button class="boton" type="submit">Subir zapato</button>
-  </div>
-</form>
+</div>

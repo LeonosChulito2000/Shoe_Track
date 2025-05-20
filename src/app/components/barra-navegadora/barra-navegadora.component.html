@@ -1,95 +1,89 @@
-<nav class="navbar bg-dark border-bottom border-body " data-bs-theme="dark">
-  <div class="container-fluid">
+<nav class="navbar Background border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid justify-content-between">
 
-
-    <div class="offcanvas offcanvas-end fuente" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <a href="/"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
-
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-
-      <div class="offcanvas-body">
-        <!-- Contenido principal -->
-        <div class="main-offcanvas-content">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item ">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Clientes
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Nuevo pedido</a></li>
-                <li><a class="dropdown-item" href="#">Encargo Especial</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Ubicacion de Tienda</a></li>
-              </ul>
-            </li>
-          </ul>
-      
-          <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-        
-
-        <div class="planet-section">
-          <div *ngFor="let planeta of planetas; let i = index" 
-               class="planet" 
-               [class.with-rings]="i < 4"
-               [ngStyle]="{
-                 'top': planeta.top,
-                 'left': planeta.left,
-                 'width': planeta.width,
-                 'height': planeta.height,
-                 'background': planeta.background
-               }">
-          </div>
-        </div>
-        
-
-            <!-- Estrellas generadas dinámicamente dentro de la navbar -->
-        <div class="navbar-stars">
-          <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
-            'top': estrella.top,
-            'left': estrella.left,
-            'animation-delay': estrella.delay,
-            'animation-duration': estrella.duration,
-            'font-size': estrella.size
-          }">    ✧
-       </div>
-
-         <!-- Imagen fija al fondo del offcanvas -->
-         <div class="admin-footer-link">
-          <a routerLink="/AdminLogin" data-bs-dismiss="offcanvas">
-            <img src="admin.png" alt="Logo" />
-          </a>
-        </div>
-        
-      </div>
-        
-    </div>
-  </div>
-
-    <a routerLink="/"><img src="Logo1.png" alt="Logo" class="navbarLogoimg" /></a>
+    <!-- BOTÓN MENÚ DESPLEGABLE A LA IZQUIERDA -->
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- LOGO CENTRADO -->
+    <a routerLink="/inicio" class="mx-auto">
+      <img src="Logo1.png" alt="Logo" class="navbarLogoimg" />
+    </a>
 
+    <!-- CARRITO A LA DERECHA -->
+    <div class="cart-container me-3">
+<img src="Carrito.png" alt="Carrito" class="cart-icon" (click)="irAlCarrito()" />
+      <div class="cart-count" *ngIf="itemsEnCarrito > 0">{{ itemsEnCarrito }}</div>
+    </div>
   </div>
-    <!-- Estrellas generadas dinámicamente dentro de la navbar -->
+
+  <!-- OFFCANVAS MENÚ DESDE LA IZQUIERDA -->
+  <div class="offcanvas offcanvas-start fuente" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas-header">
+      <a href="/"><img src="LOGOSNFNDO.png" alt="Logo" class="logonavbar2" /></a>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+      <!-- Menú principal -->
+      <div class="main-offcanvas-content">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" style="  font-family: Josefin Sans, sans-serif;">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/estado-pedido">Consulta tu Pedido</a></li>
+        </ul>
+        <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+
+      <!-- PLANETAS -->
+      <div class="planet-section">
+        <div *ngFor="let planeta of planetas; let i = index"
+             class="planet"
+             [class.with-rings]="i < 4"
+             [ngStyle]="{
+               'top': planeta.top,
+               'left': planeta.left,
+               'width': planeta.width,
+               'height': planeta.height,
+               'background': planeta.background
+             }"></div>
+      </div>
+
+
+
+      <!-- LINK ADMIN -->
+      <div class="admin-footer-link">
+        <a routerLink="/AdminLogin" data-bs-dismiss="offcanvas">
+          <img src="admin.png" alt="Admin">
+        </a>
+      </div>
+
+          <!-- Estrellas dinámicas fuera del offcanvas (Navbar principal) -->
     <div class="navbar-stars">
       <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
-        'top': estrella.top,
-        'left': estrella.left,
-        'animation-delay': estrella.delay,
-        'animation-duration': estrella.duration,
-        'font-size': estrella.size
-      }">✦</div>
+          'top': estrella.top,
+          'left': estrella.left,
+          'animation-delay': estrella.delay,
+          'animation-duration': estrella.duration,
+          'font-size': estrella.size
+        }">✦</div>
     </div>
-    
+
+    </div>
+  </div>
+
+        <!-- ESTRELLAS -->
+      <div class="navbar-stars">
+        <div *ngFor="let estrella of estrellas" class="star" [ngStyle]="{
+          'top': estrella.top,
+          'left': estrella.left,
+          'animation-delay': estrella.delay,
+          'animation-duration': estrella.duration,
+          'font-size': estrella.size
+        }">✧</div>
+      </div>
 </nav>
+

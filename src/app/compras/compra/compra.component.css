@@ -1,0 +1,281 @@
+/* Contenedor principal centrado */
+.contenedor-central {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 16.6666%;
+  box-sizing: border-box;
+  margin-top: 5em;
+  overflow-y: auto; /* scroll vertical si el contenido excede */
+
+}
+
+
+
+/* BLOQUE INICIAL: BUSCAR CORREO - ancho 4/6 del total */
+.bloque-correo {
+  width: 66.6666%; /* 4/6 del ancho total */
+  max-width: 400px; /* opcional para que no crezca demasiado */
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  text-align: center;
+}
+
+/* FORMULARIO EN DOS COLUMNAS */
+.formulario-contenedor-doble {
+  display: flex;
+  gap: 2em;
+  flex-wrap: nowrap; /* evitar que se divida en filas */
+  align-items: stretch; /* columnas igual alto */
+  min-height: 400px;
+  width: 100%;
+  max-width: 900px; /* máximo ancho para todo el formulario */
+  box-sizing: border-box;
+}
+
+/* Columna izquierda: pequeña y flex vertical */
+.columna-izquierda {
+  min-width: 180px;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 1em; /* padding base para escritorio */
+}
+
+/* Botón siempre abajo en columna izquierda */
+.columna-izquierda .boton {
+  margin-top: auto;
+  width: 100%;
+}
+
+/* Columna derecha: ocupa el resto */
+.columna-derecha {
+  flex-grow: 1;
+  max-width: 800px;
+  width: 100%; /* para que ocupe el espacio disponible */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em; /* padding base para escritorio */
+}
+
+/* Formulario campos y grupo de columnas */
+.campo-formulario {
+  margin-bottom: 1em;
+}
+
+.grupo-tres-columnas {
+  display: flex;
+  gap: 1em;
+}
+
+.grupo-tres-columnas .campo-formulario {
+  flex: 1;
+}
+
+.decorador-formulario {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 1em; /* ajusta si quieres */
+  box-sizing: border-box;
+  text-align: left; /* si quieres que el texto se alinee a la izquierda */
+}
+
+.columna-derecha .campo-formulario p {
+  text-align: center;
+  font-weight: bold; /* opcional, para destacarlo */
+  font-size: 1.2em; /* opcional, que se vea más grande */
+  margin: 0; /* para que no haya espacio extra */
+}
+
+textarea {
+  width: 100%;
+  min-width: 100%;
+  resize: vertical; /* sólo se puede cambiar la altura */
+  box-sizing: border-box; /* importante para padding + width */
+}
+
+.mensaje-agradecimiento p {
+  white-space: pre-line; /* respeta saltos de línea y espacios */
+  max-width: 280px; /* un poco más ancho que la columna izquierda (180-220) */
+  margin: 0 auto; /* centrar */
+  text-align: center;
+  font-weight: normal;
+  color: #dfb839;
+  font-size: 1em;
+}
+
+.contenedor-boton {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 80%;
+  margin: 1.5em auto 3em auto; /* centrado horizontal con margen arriba/abajo */
+  padding: 1em;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px; /* alto fijo o ajusta a gusto */
+  box-sizing: border-box;
+}
+
+.contenedor-boton .boton {
+  width: 80%;
+  height: 100%; /* para que ocupe todo el alto del contenedor */
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* ===== CONTENEDOR DEL MODAL (pantalla completa, centrado) ===== */
+.modal.modal-secundario {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro translúcido */
+  backdrop-filter: blur(6px);          /* Desenfoque de fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;                      /* Muy encima de todo */
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;                    /* Soporte para contenido largo */
+}
+
+/* ===== CONTENIDO DEL MODAL (la caja que aparece al centro) ===== */
+.modal-content.confirmacion-content {
+  background: linear-gradient(145deg, #003366, #220044); /* Fondo en tonos púrpura oscuro */
+  border: 2px solid #00ffcc;                             /* Borde brillante */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);          /* Sombra suave */
+  text-align: center;
+  padding: 2rem;
+  border-radius: 16px;
+  color: white;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  animation: aparecerModal 0.6s ease-out forwards;
+}
+
+/* ===== ANIMACIÓN DE APARICIÓN ===== */
+@keyframes aparecerModal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== BOTÓN DE CIERRE (❌) ===== */
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  z-index: 1001;
+  transition: color 0.3s ease;
+}
+.modal-content .close:hover {
+  color: #dfb839;
+}
+
+/* ===== BOTÓN INTERIOR ===== */
+.modal-content .boton {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #dfb839;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.modal-content .boton:hover {
+  background-color: #ffe066;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+  /* En móvil, formulario contenedor doble pasa a columna única vertical */
+  .formulario-contenedor-doble {
+    flex-direction: column;
+    max-width: 100% !important;
+    min-height: auto !important;
+    gap: 1.5em;
+      overflow-y: auto; /* scroll vertical si el contenido excede */
+
+  }
+
+  /* Columna izquierda ocupa 100% ancho, con más padding */
+  .columna-izquierda {
+    max-width: 100% !important;
+    min-width: auto !important;
+    width: 100% !important;
+    padding: 1.5em 1.2em;
+    text-align: center;
+  }
+
+  /* Ajusta el contenido de la columna izquierda para que se vea centrado */
+  .columna-izquierda label {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  .mensaje-agradecimiento p {
+    font-size: 1.1em;
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+
+  /* Columna derecha también 100% ancho */
+  .columna-derecha {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 1.5em 1.2em;
+  }
+
+  /* El contenedor principal central debe tener padding horizontal más pequeño */
+.contenedor-central {
+  height: 80vh !important;  /* altura limitada */
+  overflow-y: auto !important;
+    overflow-X: hidden !important;
+
+}
+
+
+  /* Botón que está abajo, que ocupe todo el ancho posible */
+  .contenedor-boton {
+    width: 100% !important;
+    margin: 1em 0 2em 0 !important;
+    padding: 1em 0 !important;
+    height: auto !important;
+  }
+
+  .contenedor-boton .boton {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  html, body {
+  height: auto !important;
+  overflow-y: auto !important;
+}
+
+}
+
+
+

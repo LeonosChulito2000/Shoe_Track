@@ -16,6 +16,16 @@
   scrollbar-width: none;      /* Firefox */
   -ms-overflow-style: none;   /* IE y Edge antiguos */
 }
+
+
+  .sin-stock {
+  background-color: red;
+  color: white;
+  cursor: not-allowed;
+  border: none;
+  font-weight: bold;
+}
+
 .splash-container::-webkit-scrollbar {
   display: none;              /* Chrome, Safari y Opera */
 }
@@ -146,38 +156,6 @@
 
 
 
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas por defecto */
-  gap: 40px;
-  margin-top: 40px;
-  padding: 0 20px;
-}
-
-/* Pantallas medianas (tablets o similar) */
-@media (min-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas para pantallas medianas */
-  }
-}
-
-/* Pantallas grandes (escritorio) */
-@media (min-width: 1200px) {
-  .grid-container {
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas para pantallas grandes */
-  }
-}
-
-.grid-item {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 20px;
-  text-align: center;
-  backdrop-filter: blur(4px);
-  transition: transform 0.3s ease;
-}
-
 .grid-item:hover {
   transform: translateY(-5px);
 }
@@ -193,5 +171,227 @@
   color: white;
   font-weight: bold;
   margin-bottom: 10px;
+  font-size: 170%;
 }
 
+.grid-container {
+  display: grid;
+  /* grid-template-columns: repeat(1, 1fr); /* Móvil: 1 columna */
+  gap: 16px; /* Espacio entre los productos (~1 cm) */
+  padding: 16px; /* Espacio respecto al borde de la pantalla */
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en tablets */
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid-container {
+grid-template-columns: repeat(4, minmax(200px, 1fr));
+  }
+}
+
+/* CAMBIO AQUÍ: aseguramos que cada grid-item tenga el mismo alto y alinee su contenido verticalmente */
+.grid-item {
+  display: flex;
+  flex-direction: column;      /* Alineación vertical */
+  justify-content: space-between; /* Empuja el botón hacia abajo */
+  background: rgba(0, 0, 0, 0.7);
+  padding: 16px;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 330px; /* Ajusta según lo que necesites */
+}
+
+
+
+.modal {
+  position: fixed;
+  top: 10%; /* Se posiciona justo debajo de la navbar */
+  left: 0;
+  width: 100%;
+  height: calc(100% - 60px); /* Ocupa todo menos la altura de la navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+
+
+
+.modal-content {
+  
+  background: linear-gradient(145deg, #000010 0%, #0a0a3c 20%, #4b0082 40%, #330066 60%, #4b0082 80%, #800080 100%);
+  backdrop-filter: blur(100px);
+  box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.1); /* Sombra interior suave */
+
+
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  margin: 10vh 0; /* 5% arriba y abajo, 0 a los lados */
+  width: 100%;
+  max-width: 800px; /* Para limitar el tamaño en pantallas grandes */
+}
+
+
+.modal-body {
+  display: flex;
+  flex-direction: column; /* Por defecto: diseño vertical */
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .modal-body {
+    flex-direction: row; /* En pantallas grandes: imagen izquierda, contenido derecha */
+    align-items: flex-start;
+  }
+
+  .modal-body img {
+    max-width: 300px;
+    flex-shrink: 0;
+  }
+
+  .modal-details {
+    flex: 1;
+    padding-left: 1.5rem;
+    text-align: left;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  z-index: 1001;
+}
+
+
+
+
+button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin: 0.5rem 0 1rem 0;
+  width: 100%;
+}
+
+.seleccionado {
+  border-color: #ff4081;
+  font-weight: bold;
+}
+
+
+.BotonColor {
+  border-radius: 20px;
+  color: white;
+  background-color: #000;
+}
+
+
+.modal-secundario {
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo más oscuro */
+  backdrop-filter: blur(6px);          /* Más desenfoque para diferenciar */
+  z-index: 10001;                      /* Encima del modal principal */
+}
+
+.confirmacion-content {
+  background: linear-gradient(145deg, #003366, #220044); /* Otro fondo */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  border: 2px solid #00ffcc;
+  text-align: center;
+}
+
+
+
+/* ORGANIZACIÓN MEJORADA EN MÓVILES */
+@media (max-width: 767px) {
+  .modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-body h3 { /* SKU */
+    order: 0;
+    margin-top: 0;
+  }
+
+  .modal-body img {
+    order: 1;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .modal-details {
+    order: 2;
+    text-align: center;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .modal-details h2, 
+  .modal-details p {
+    margin: 0.5rem 0;
+  }
+
+  .modal-details > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-details .BotonColor {
+    flex: 1 0 45%; /* Aproximadamente 2 columnas */
+    max-width: 45%;
+    text-align: center;
+  }
+
+  .sin-stock {
+  background-color: red;
+  color: white;
+  cursor: not-allowed;
+  border: none;
+  font-weight: bold;
+}
+
+  select {
+    width: 90%;
+    max-width: 300px;
+  }
+
+
+}

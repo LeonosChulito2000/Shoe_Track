@@ -1,0 +1,47 @@
+<div class="carrito-wrapper">
+  <div class="carrito-container Background carrito-wrapper" style="font-weight: bold;  font-family: Josefin Sans, sans-serif;">
+  <!-- LISTA DE PRODUCTOS -->
+  <div class="productos-lista">
+<div class="producto-item" *ngFor="let item of carrito">
+  <img [src]="'./NewZapatos/' + item.imagen" alt="imagen producto" />
+  <div class="info">
+    <h1 style="color: #dfb839;">{{ item.nombre }}</h1>
+
+    <!-- Detalles organizados en tabla responsive -->
+    <div class="detalle-grid">
+      <div><strong>SKU:</strong> <br>{{ item.sku }}</div>
+      <div><strong>Color:</strong> <br>{{ item.color }}</div>
+      <div><strong>Talla:</strong><br> {{ item.talla }}</div>
+      <div><strong>Material:</strong> <br>{{ item.material }}</div>
+      <div><strong>Stock:</strong> <br>{{ item.stock }} disponibles</div>
+    </div>
+
+    <!-- Precio centrado -->
+    <p class="precio-producto"><strong>Precio:</strong> ${{ item.precio }}</p>
+
+    <!-- Acciones: cantidad y eliminar -->
+    <div class="acciones">
+      <button (click)="eliminar(item)">🗑️</button>
+      <span>Cantidad:</span>
+      <button (click)="disminuir(item)">-</button>
+      {{ item.cantidad }}
+      <button (click)="aumentar(item)">+</button>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <!-- RESUMEN Y BOTÓN DE COMPRA -->
+  <div class="resumen-carrito">
+    <h3>Subtotal ({{ totalProductos }} productos):</h3>
+    <h2>${{ totalPrecio }}</h2>
+    <button class="boton" 
+            (click)="procederCompra()" 
+            [disabled]="totalProductos === 0">
+      Proceder al pago
+    </button>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,103 @@
+<div class="Background">
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="contenedor-central">
+
+    <!-- BLOQUE INICIAL: SOLO BUSCAR CORREO -->
+    <div *ngIf="!mostrarFormulario" class="bloque-correo decorador">
+      <label>BUSCA TU CORREO</label>
+      <input [(ngModel)]="correoInput" name="correoInput" (keyup.enter)="buscarUsuario()" />
+      <button (click)="buscarUsuario()" class="boton resaltado2">Buscar</button>
+    </div>
+
+    <!-- BLOQUE FORMULARIO COMPLETO Y BOTÓN ABAJO -->
+    <div *ngIf="mostrarFormulario" class="bloque-formulario-con-boton">
+
+      <div class="formulario-contenedor-doble">
+        <!-- Columna izquierda -->
+        <div class="columna-izquierda decorador decorador-formulario">
+          <label>BUSCA TU CORREO</label>
+          <input [(ngModel)]="correoInput" name="correoInput" disabled />
+          <div class="mensaje-agradecimiento">
+            <p style="font-size: 110%;">{{ mensaje }}</p>
+          </div>
+        </div>
+
+        <!-- Columna derecha -->
+        <!-- Columna derecha -->
+        <div class="columna-derecha decorador decorador-formulario">
+          <form #formCompra="ngForm">
+
+            <!-- Mostrar inputs separados si NO existe usuario -->
+            <div *ngIf="!usuarioExiste" class="grupo-tres-columnas">
+              <div class="campo-formulario">
+                <label>Apellido Paterno</label>
+                <input type="text" [(ngModel)]="datosUsuario.apellido_paterno" name="apellido_paterno" required />
+              </div>
+              <div class="campo-formulario">
+                <label>Apellido Materno</label>
+                <input type="text" [(ngModel)]="datosUsuario.apellido_materno" name="apellido_materno" required />
+              </div>
+              <div class="campo-formulario">
+                <label>Nombres</label>
+                <input type="text" [(ngModel)]="datosUsuario.nombres" name="nombres" required />
+              </div>
+            </div>
+
+            <!-- Mostrar solo texto si el usuario existe -->
+            <div *ngIf="usuarioExiste" class="campo-formulario">
+              <label>NOMBRE COMPLETO</label>
+              <p>{{ nombreCompleto }}</p>
+            </div>
+
+            <!-- Resto del formulario -->
+            <div class="campo-formulario">
+              <label>DIRECCIÓN DE ENVÍO</label><br />
+              <textarea [(ngModel)]="datosUsuario.direccion_envio" name="direccion_envio" required
+                #direccionEnvio (input)="autoAjustarAltura(direccionEnvio)"></textarea>
+            </div>
+
+            <div class="grupo-tres-columnas">
+              <div class="campo-formulario">
+                <label>FECHA DE REGISTRO</label>
+                <input type="text" [(ngModel)]="datosUsuario.fecha_registro" name="fecha_registro" disabled />
+              </div>
+              <div class="campo-formulario">
+                <label>TELÉFONO</label>
+                <input type="number" [(ngModel)]="datosUsuario.telefono" name="telefono" required />
+              </div>
+              <div class="campo-formulario">
+                <label>CORREO</label>
+                <input type="email" [(ngModel)]="datosUsuario.correo" name="correo" required />
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- CONTENEDOR BOTÓN ABAJO, SOLO CUANDO mostrarFormulario es true -->
+      <div class="contenedor-boton">
+        <button (click)="onSubmit()" class="boton resaltado2">
+          {{ usuarioExiste && hayCambios() ? 'Actualizar y Continuar' : 'Continuar' }}
+        </button>
+      </div>
+
+    </div> <!-- fin bloque-formulario-con-boton -->
+
+  </div>
+</div>
+
+<!-- MODAL PARA MENSAJES -->
+<div class="modal modal-secundario" *ngIf="mostrarModal">
+  <div class="modal-content confirmacion-content">
+    <span class="close" (click)="cerrarModal()">❌</span>
+ <p style="font-size: 150%; color: #dfb839; font-weight: bold;">
+  {{ mensajeModal }}
+</p>
+<ul style="color: #dfb839; font-weight: normal; margin-left: 20px;">
+  <li *ngFor="let campo of camposActualizados">{{ campo }}</li>
+</ul>
+
+    <button class="boton" (click)="cerrarModal()">Entendido</button>
+  </div>
+</div>

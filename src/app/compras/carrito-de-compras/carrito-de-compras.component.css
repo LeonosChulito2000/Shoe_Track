@@ -1,0 +1,124 @@
+/* 🟣 CONTENEDOR GENERAL */
+.carrito-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 2rem;
+  color: white;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+
+/* 📱 DISEÑO PARA PANTALLAS PEQUEÑAS */
+
+
+
+/* 🔳 LISTA DE PRODUCTOS */
+.productos-lista {
+  flex: 3;
+}
+
+/* 🟡 ITEM DE PRODUCTO */
+.producto-item {
+  display: flex;
+  background: transparent;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ffffff40;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+/* 📸 IMAGEN DEL PRODUCTO */
+.producto-item img {
+  width: 120px;
+  object-fit: contain;
+  margin-right: 1rem;
+}
+
+/* ℹ️ DETALLES */
+.info {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* 📋 DETALLES EN CUADRICULA */
+.detalle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 💲 PRECIO CENTRADO */
+.precio-producto {
+  text-align: center;
+  color: chartreuse;
+  font-size: 120%;
+  margin: 1rem 0 0.5rem;
+}
+
+/* ⚙️ BOTONES DE CANTIDAD Y ELIMINAR */
+.acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+
+/* 📦 RESUMEN DE CARRITO */
+.resumen-carrito {
+  flex: 1;
+  padding: 1.5rem;
+  border: 2px solid #ff4081;
+  border-radius: 10px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* 🔘 BOTÓN DE PAGO */
+.resumen-carrito button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
+@media (max-width: 768px) {
+  .carrito-container {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch;
+  }
+
+  .resumen-carrito {
+    position: static !important;
+    width: 100%;
+    order: 2;
+  }
+
+  .productos-lista {
+    order: 1;
+    width: 100%;
+  }
+}
+
+.carrito-wrapper {
+  padding-top: 100px;
+  max-height: 100vh;
+  overflow-y: auto;
+}

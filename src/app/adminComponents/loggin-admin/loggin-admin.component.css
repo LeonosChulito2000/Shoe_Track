@@ -1,38 +1,37 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Centrado vertical completo */
+}
+
+.login-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 80%;
+  max-width: 900px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente si deseas */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  padding: 2rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%; /* Usa el 100% de su celda */
+  padding-right: 1rem;
+}
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .logoimg {
-    width: 300px;         /* Tamaño base */
-    max-width: 100%;      /* No exceder el ancho del contenedor */
-    height: auto;         /* Mantiene proporción */
-    display: block;       /* Evita espacios debajo */
-    margin: 0 auto;       /* Centrada si está dentro de un contenedor con ancho limitado */
-  }
-  
-  
-  .fondoAdminpre {
-  
-  
-    background-color: #000;
-    width: 100%;
-    height: 100vh;
-    z-index: 0; /* Debe estar debajo de contenido interactivo */
-    top: 0;
-    left: 0;
-    background: linear-gradient(145deg, #000010 0%, #0a0a3c 20%, #4b0082 40%, #330066 60%, #4b0082 80%, #800080 100%);
-    transform-origin: top center;
-    box-shadow: inset 0 0 100px rgba(0, 0, 0, 10.0); /* Filtro oscuro sutil en el interior */
-    overflow: auto;
-    position: relative; /* Necesario para las estrellas */
-    min-height: 100vh;
-    overflow-y: scroll;         /* Permite el scroll vertical */
-    scrollbar-width: none;      /* Firefox */
-    -ms-overflow-style: none;   /* IE y Edge antiguos */
-  
-    
-  }
-  
-  .resaltadoexrr{
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-  
-  }
-  
+  width: 80%; /* 80% del espacio de su celda */
+  max-width: 300px;
+  height: auto;
+}
