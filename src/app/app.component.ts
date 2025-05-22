@@ -17,7 +17,18 @@ export class AppComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       // Oculta navbar solo en la ruta raíz (pantalla de carga)
-      this.mostrarNavbar = !(event.urlAfterRedirects === '/' || event.url === '/');
+      this.mostrarNavbar = !(
+        event.urlAfterRedirects === '/' || 
+        event.urlAfterRedirects === '/AdminSheoTrackPanel' ||
+        event.urlAfterRedirects === '/AdminSheoTrackPanel/PanelVentaShoeTrack' ||
+        event.urlAfterRedirects === '/AdminSheoTrackPanel/InventarioAdminShoeTrack' ||
+        event.urlAfterRedirects === '/AdminSheoTrackPanel/UsuariosAdminShoeTrack' ||
+        event.urlAfterRedirects === '/AdminSheoTrackPanel/PedidosShoeTrack' ||
+        event.urlAfterRedirects === '/AdminSheoTrackPanel/DevolucionesShoeTrack'
+
+      );
+
+
     });
   }
 }

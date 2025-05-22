@@ -14,6 +14,11 @@ import { LogginAdminComponent } from './adminComponents/loggin-admin/loggin-admi
 import { CarritoDeComprasComponent } from './compras/carrito-de-compras/carrito-de-compras.component';
 import { FinalizaCompraComponent } from './compras/finaliza-compra/finaliza-compra.component';
 import { EstadoDePedidoComponent } from './compras/estado-de-pedido/estado-de-pedido.component';
+import { PanelVentaComponent } from './adminComponents/Panel/panel-venta/panel-venta.component';
+import { InventarioComponent } from './adminComponents/Panel/inventario/inventario.component';
+import { UsuariosComponent } from './adminComponents/Panel/usuarios/usuarios.component';
+import { PedidosComponent } from './adminComponents/Panel/pedidos/pedidos.component';
+import { DevolucionesComponent } from './adminComponents/Panel/devoluciones/devoluciones.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,12 @@ import { EstadoDePedidoComponent } from './compras/estado-de-pedido/estado-de-pe
     LogginAdminComponent,
     CarritoDeComprasComponent,
     FinalizaCompraComponent,
-    EstadoDePedidoComponent
+    EstadoDePedidoComponent,
+    PanelVentaComponent,
+    InventarioComponent,
+    UsuariosComponent,
+    PedidosComponent,
+    DevolucionesComponent
   ],
   imports: [
     BrowserModule,

@@ -15,8 +15,7 @@ export class FinalizaCompraComponent implements OnInit {
   total: number = 0;
   mostrarModal: boolean = false;
   fechaEntrega: string = '';
-  numeroPedido: string = '';  // <-- variable para guardar el id pedido
-
+  numeroPedido: string = '';
 
   constructor(
     private carritoService: CarritoService,
@@ -36,7 +35,7 @@ export class FinalizaCompraComponent implements OnInit {
 
     const fechaActual = new Date();
     fechaActual.setDate(fechaActual.getDate() + 2);
-    this.fechaEntrega = fechaActual.toISOString().split('T')[0]; // YYYY-MM-DD
+    this.fechaEntrega = fechaActual.toISOString().split('T')[0];
   }
 
   agregarCantidad(item: any) {
@@ -63,7 +62,7 @@ export class FinalizaCompraComponent implements OnInit {
     const backendUrl = environment.backendUrl;
 
     const pedidoPayload = {
-      correo: this.usuario.correo,  // Mando el correo en vez del id_cliente
+      correo: this.usuario.correo,
       productos: this.carrito.map(item => ({
         sku: item.sku,
         color: item.color,
@@ -74,13 +73,11 @@ export class FinalizaCompraComponent implements OnInit {
       }))
     };
 
-    // Paso 1: Enviar el pedido al backend
     this.http.post(`${backendUrl}/guardarPedido.php`, pedidoPayload).toPromise()
       .then((res: any) => {
         if (res.success) {
-          this.numeroPedido = res.id_pedido;  // guardamos el número de pedido aquí
+          this.numeroPedido = res.id_pedido;
 
-          // Paso 2: Actualizar stock y contador de pedidos
           const solicitudes = this.carrito.map(item =>
             this.http.post(`${backendUrl}/actualizar_stock.php`, {
               sku: item.sku,
@@ -99,8 +96,8 @@ export class FinalizaCompraComponent implements OnInit {
           throw new Error("Error al guardar el pedido: " + res.error);
         }
       })
+      .then(() => this.enviarResumenPorCorreo())
       .then(() => {
-        // Paso 3: Mostrar modal y redirigir
         this.mostrarModal = true;
         setTimeout(() => {
           this.carritoService.vaciarCarrito();
@@ -111,6 +108,35 @@ export class FinalizaCompraComponent implements OnInit {
         console.error("Error en el proceso de compra:", error);
         alert("Ocurrió un error al procesar tu compra.");
       });
+  }
+
+  async enviarResumenPorCorreo() {
+    const backendUrl = environment.backendUrl;
+
+    const base64Logo = await this.convertirImagenABase64('./assets/logo.png');
+
+    const resumenPayload = {
+      correo: this.usuario.correo,
+      numeroPedido: this.numeroPedido,
+      usuario: this.usuario,
+      productos: this.carrito,
+      total: this.total,
+      fechaEntrega: this.fechaEntrega,
+      logoBase64: base64Logo
+    };
+
+    return this.http.post(`${backendUrl}/enviarResumenPedido.php`, resumenPayload).toPromise();
+  }
+
+  async convertirImagenABase64(url: string): Promise<string> {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   }
 
   cerrarModal() {

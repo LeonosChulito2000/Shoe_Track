@@ -5,9 +5,25 @@
     <!-- BLOQUE INICIAL: SOLO BUSCAR CORREO -->
     <div *ngIf="!mostrarFormulario" class="bloque-correo decorador">
       <label>BUSCA TU CORREO</label>
-      <input [(ngModel)]="correoInput" name="correoInput" (keyup.enter)="buscarUsuario()" />
+      <input [(ngModel)]="correoInput" name="correoInput" (keyup.enter)="buscarUsuario()" required />
       <button (click)="buscarUsuario()" class="boton resaltado2">Buscar</button>
+<br>
+<br>
+          <div *ngIf="mostrarInputCodigo" >
+  <label>Ingresa el código que enviamos a tu {{ correoInput.includes('@') ? 'correo' : 'teléfono' }}</label>
+<input [(ngModel)]="codigoVerificacion" maxlength="5" [class.error-input]="codigoIncorrecto" />
+  <button class="boton" (click)="verificarCodigo()">Verificar</button>
+  <br>
+<br>
+
+<div *ngIf="codigoIncorrecto" class="error-mensaje">Código incorrecto, intenta nuevamente</div>
+
+<button class="boton" *ngIf="mostrarInputCodigo && reenvioHabilitado" (click)="reenviarCodigo()">Reenviar código</button>
+
+</div>
+
     </div>
+
 
     <!-- BLOQUE FORMULARIO COMPLETO Y BOTÓN ABAJO -->
     <div *ngIf="mostrarFormulario" class="bloque-formulario-con-boton">
@@ -63,11 +79,11 @@
               </div>
               <div class="campo-formulario">
                 <label>TELÉFONO</label>
-                <input type="number" [(ngModel)]="datosUsuario.telefono" name="telefono" required />
+                <input  type="tel"  [(ngModel)]="datosUsuario.telefono"  name="telefono"  required  pattern="^\d{10}$"  maxlength="10"  title="Debe contener exactamente 10 dígitos"/>
               </div>
               <div class="campo-formulario">
                 <label>CORREO</label>
-                <input type="email" [(ngModel)]="datosUsuario.correo" name="correo" required />
+                <input type="email" [(ngModel)]="datosUsuario.correo" name="correo" required disabled />
               </div>
             </div>
           </form>

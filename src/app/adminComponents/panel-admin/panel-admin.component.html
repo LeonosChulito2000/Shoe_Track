@@ -1,6 +1,25 @@
-<div class="Admin min-vh-100 d-flex flex-column justify-content-center align-items-center">
-  <button class="boton mb-3" routerLink="/NuevoZapato">Agregar nuevos zapatos</button>
-  <button class="boton mb-3">Eliminar zapatos</button>
-    <button class="boton">Actualizar inventario actual</button>
+<div class="Admin min-vh-100 d-flex flex-column">
+  <!-- Pestañas -->
+  <ul class="nav nav-tabs custom-tabs">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="PanelVentaShoeTrack" routerLinkActive="active">Panel de Ventas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="InventarioAdminShoeTrack" routerLinkActive="active">Inventario</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="UsuariosAdminShoeTrack" routerLinkActive="active">Usuarios</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="PedidosShoeTrack" routerLinkActive="active">Pedidos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="DevolucionesShoeTrack" routerLinkActive="active">Devoluciones</a>
+    </li>
+  </ul>
+
+  <!-- Contenido dinámico -->
+  <div class="tab-content mt-4">
+    <router-outlet></router-outlet>
   </div>
-  
+</div>

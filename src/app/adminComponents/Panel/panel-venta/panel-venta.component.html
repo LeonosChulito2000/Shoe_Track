@@ -1,0 +1,106 @@
+<!-- pos.component.html -->
+<div class="pos-container">
+  <!-- Campo SKU -->
+  <input type="text" placeholder="Escanea el código de barras..." [(ngModel)]="barcode" (keyup.enter)="buscarProducto()" #skuInput class="sku-input" autofocus />
+
+  <div class="pos-content">
+    <!-- Tabla de productos -->
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos">
+          <td><img [src]="'./NewZapatos/' + producto.imagen" class="product-image" /></td>
+          <td>{{ producto.nombre }}</td>
+          <td>{{ formatPrecio(producto.precio) }}</td>
+          <td>{{ producto.cantidad }}</td>
+          <td>
+            <button (click)="incrementarCantidad(producto)">+</button>
+            <button (click)="decrementarCantidad(producto)">-</button>
+            <button (click)="eliminarProducto(producto)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Resumen lateral -->
+    <div class="resumen-panel">
+      <p>Total productos: {{ totalCantidad }}</p>
+      <p>Total: {{ formatPrecio(totalPrecio) }}</p>
+    </div>
+  </div>
+
+  <!-- Botones inferiores -->
+  <div class="pos-actions">
+    <button class="cancelar" (click)="cancelarCompra()">Cancelar Compra</button>
+    <button class="cobrar" (click)="abrirModalCobro()" [disabled]="totalCantidad === 0 || totalPrecio === 0">
+      Cobrar
+    </button>
+  </div>
+
+  <!-- Modal sin stock -->
+<div class="modal modal-secundario" *ngIf="mostrarSinStock">
+  <div class="modal-content confirmacion-content">
+    <span class="close" (click)="cerrarModalSinStock()">×</span>
+    <p>El producto ya no cuenta con stock. ¿Pertenece a un pedido ya pagado?</p>
+    <button class="boton" (click)="cerrarModalSinStock()">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal confirmar cancelación de compra -->
+<div class="modal modal-secundario" *ngIf="mostrarConfirmacionCancelacion">
+  <div class="modal-content confirmacion-content">
+    <span class="close" (click)="mostrarConfirmacionCancelacion = false">×</span>
+    <p>¿Estás seguro de que deseas cancelar la compra? Se eliminarán todos los productos del listado.</p>
+    <button class="boton" (click)="confirmarCancelarCompra()">Sí, cancelar compra</button>
+    <button class="boton" (click)="mostrarConfirmacionCancelacion = false">No, continuar comprando</button>
+  </div>
+</div>
+
+<!-- Modal venta finalizada -->
+<div class="modal modal-secundario" *ngIf="mostrarVentaFinalizada">
+  <div class="modal-content confirmacion-content">
+    <p>✅ Venta finalizada con éxito</p>
+  </div>
+</div>
+
+<!-- Modal cliente frecuente -->
+<div class="modal modal-secundario" *ngIf="modalCobro">
+  <div class="modal-content confirmacion-content">
+    <span class="close" (click)="modalCobro = false">×</span>
+    <p>¿El comprador ya tiene cuenta?</p>
+    <button class="boton" (click)="clienteTieneCuenta(true)">Sí</button>
+    <button class="boton" (click)="clienteTieneCuenta(false)">No</button>
+
+    <div *ngIf="solicitarIdCliente" class="correo-container">
+  <input
+    type="text"
+    [(ngModel)]="correoCliente"
+    placeholder="Correo del cliente"
+    class="input-cliente"
+  />
+
+  <div *ngIf="errorCorreo" class="mensaje-error">
+    {{ errorCorreo }}
+  </div>
+<div *ngIf="clienteNoExiste" class="mensaje-error">
+  El correo no está registrado. Puedes continuar o registrarlo más tarde.
+</div>
+
+
+<br>
+  <button class="boton" (click)="finalizarVenta()">Finalizar venta</button>
+</div>
+    <div *ngIf="mensajeRegistro" style="margin-top: 1rem;">
+      <p>Al finalizar, ve a la pestaña de usuarios y regístralo.</p>
+      <button class="boton" (click)="finalizarVenta()">Continuar</button>
+    </div>
+  </div>
+</div>
