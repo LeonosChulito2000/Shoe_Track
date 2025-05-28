@@ -1,0 +1,117 @@
+<!-- Encabezado general de la página -->
+<div class="header">
+  <div class="search-bar">
+    <input type="text" placeholder="Buscar..." [(ngModel)]="searchTerm" />
+  </div>
+  <div class="report-button">
+    <button class="boton" (click)="openReportModal()">Generar Reporte</button>
+  </div>
+</div>
+<div class="loading-modal" *ngIf="isGeneratingPDF">
+  <div class="loading-content">
+    <p>Generando reporte, por favor espera...</p>
+    <div class="spinner"></div>
+  </div>
+</div>
+
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Venta</th>
+        <th>Productos</th>
+        <th>Precio Total</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sale of filteredVentasList">
+        <td>{{ sale.numero_venta }}</td>
+        <td>{{ sale.productos }}</td>
+        <td>{{ sale.precio_total }}</td>
+        <td>{{ sale.fecha_venta }}</td>
+        <td>{{ sale.id_cliente }}</td>
+        <td>
+          <button (click)="confirmDelete(sale)">
+            <i class="fa fa-times"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal grande para reporte y gráficas -->
+<div class="modal" *ngIf="showReportModal">
+  <div class="modal-content large-modal">
+    <!-- Botón de cierre (X) en la esquina superior derecha -->
+    <button class="close-btn" (click)="closeModal()">✖</button>
+
+    <!-- Parte superior: Formulario para configurar el reporte -->
+    <div class="modal-header" *ngIf="!reportGenerated">
+      <h2>Reporte</h2>
+      <div class="radio-group">
+        <label>
+          <input type="radio" [(ngModel)]="reportType" value="day" /> Por Día
+        </label>
+        <label>
+          <input type="radio" [(ngModel)]="reportType" value="month" /> Por Mes
+        </label>
+      </div>
+
+      <div *ngIf="reportType === 'day'" class="date-fields">
+        <label>Desde:</label>
+        <input type="date" [(ngModel)]="startDate" />
+        <label>Hasta:</label>
+        <input type="date" [(ngModel)]="endDate" />
+      </div>
+      <div *ngIf="reportType === 'month'" class="date-fields">
+        <label>Seleccione Mes:</label>
+        <input type="month" [(ngModel)]="selectedMonth" />
+      </div>
+
+      <div class="button-group">
+        <button class="boton" (click)="generateReport()">Generar Reporte</button>
+        <button class="boton" (click)="closeModal()">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Parte inferior: Resultados del reporte (se muestran cuando reportGenerated es true) -->
+    <div class="pdf-content">
+      <div class="report-result-header" *ngIf="reportGenerated">
+      <!-- Encabezado del reporte -->
+      <div class="report-result-header">
+        <div class="report-header-left">
+          <h2>{{ reportHeader?.appName }}</h2>
+          <p>{{ reportHeader?.period }}</p>
+          <p>{{ reportHeader?.generatedDate }}</p>
+        </div>
+        <div class="report-header-right">
+          <img [src]="reportHeader?.logo" alt="Logo de la aplicación" />
+        </div>
+      </div>
+
+      <!-- Contenedor de gráficas, se agregaron todos los canvas necesarios -->
+      <div class="charts-container">
+        <canvas id="salesChart"></canvas>
+        <canvas id="revenueChart"></canvas>
+        <canvas id="topClientsChart"></canvas>
+        <canvas id="accumulatedRevenueChart"></canvas>
+        <canvas id="revenueComparisonChart"></canvas>
+        <p *ngIf="noData">Sin datos disponibles</p>
+      </div>
+    </div>
+    
+
+      <!-- Botones para exportar -->
+      <div class="export-buttons">
+  <button class="boton" (click)="exportPDF()">Exportar a PDF</button>
+  <button class="boton" (click)="exportExcel()">Exportar a Excel</button>
+</div>
+    </div>
+    
+  </div>
+</div>
